@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://byvcn5mtxnc1f"]
+
+[ext_resource type="Script" uid="uid://jesw3wqeea0h" path="res://scenes/game_state.gd" id="1_321hb"]
+
+[node name="GameState" type="Node" unique_id=2102336360]
+script = ExtResource("1_321hb")
+
+[node name="RoundTimer" type="Timer" parent="." unique_id=1494376375]
+
+[connection signal="timeout" from="RoundTimer" to="." method="_on_round_timer_timeout"]

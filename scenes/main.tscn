@@ -1,13 +1,36 @@
 [gd_scene format=3 uid="uid://g3kqkl3cisaj"]
 
 [ext_resource type="Script" uid="uid://4vekbqq5pfka" path="res://scripts/grid.gd" id="1_grid"]
-[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://egsep8g1epv" path="res://scenes/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://dclkk1cljl7jb" path="res://enemies/zombie/zombie.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://de5s3fdvddx56" path="res://ui/ui.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://byvcn5mtxnc1f" path="res://scenes/game_state.tscn" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://bp6ygev85ua8" path="res://components/score_manager.gd" id="6_tefeu"]
 
 [node name="Main" type="Node2D" unique_id=1072304149]
 
 [node name="Grid" type="Node2D" parent="." unique_id=1266680200]
 script = ExtResource("1_grid")
 
-[node name="Player" parent="." unique_id=570212352 instance=ExtResource("2_player")]
+[node name="Player" parent="." unique_id=570212352 node_paths=PackedStringArray("sm") instance=ExtResource("2_player")]
+sm = NodePath("../ScoreManager")
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=398792461]
+[node name="Zombie" parent="." unique_id=2132140099 instance=ExtResource("3_sugp2")]
+position = Vector2(249, 46)
+
+[node name="GameState" parent="." unique_id=2102336360 node_paths=PackedStringArray("sm") instance=ExtResource("4_tbgi4")]
+sm = NodePath("../ScoreManager")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=398792461]
+zoom = Vector2(0.5, 0.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=442931881]
+
+[node name="UI" parent="CanvasLayer" unique_id=460964894 node_paths=PackedStringArray("gs", "sm") instance=ExtResource("4_jyhfs")]
+gs = NodePath("../../GameState")
+sm = NodePath("../../ScoreManager")
+
+[node name="ScoreManager" type="Node" parent="." unique_id=2073533039 node_paths=PackedStringArray("p")]
+script = ExtResource("6_tefeu")
+p = NodePath("../Player")
+init_score = 100.0

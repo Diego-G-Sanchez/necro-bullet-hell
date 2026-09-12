@@ -1,9 +1,16 @@
 extends CharacterBody2D
+class_name Player
+
+@export_group("Components")
+@export var health_component: HealthComponent
+@export var sm: ScoreManager
 
 # Top-down movement + a hand rig that aims at the cursor.
-# The body and the hands are scaled independently on purpose: the body sprite
-# is a child of this node at body_scale, the hands live under HandRig at
-# hand_scale, and neither inherits the other's scale.
+# HandRig sits at a fixed distance from the player and rotates around that
+# center to face the mouse. HandL/HandR keep a Y-only rest pose so an
+# AnimationPlayer on the rig can own their pose. Body and hands are scaled
+# independently: body_scale on Body, hand_scale on the sprites (not HandRig,
+# or rest-pose separation would scale too).
 
 @export_group("Movement")
 @export var max_speed := 220.0
@@ -36,11 +43,28 @@ var aim_point := Vector2.INF
 const FLIP_DEADZONE := deg_to_rad(10.0)
 var _aiming_left := false
 
+enum Hands {
+	Wolf,
+	Shooter,
+	Mage,
+}
+
+var hand_state: Hands = Hands.Wolf
 
 func _ready() -> void:
 	# Starts stopped; the bob only runs while a movement key is held.
 	body.stop()
+	hand_l.position = Vector2(0, -hand_separation)
+	hand_r.position = Vector2(0, hand_separation)
 
+	#Connect to the healthComponent
+	health_component.damage_taken.connect(flash_red)
+
+func flash_red():
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color.RED, 0.1)
+	tween.tween_property(self, "modulate", Color.WHITE, 0.1)
+	print("player took damage")
 
 func get_aim_point() -> Vector2:
 	return get_global_mouse_position() if aim_point == Vector2.INF else aim_point
@@ -62,15 +86,13 @@ func _physics_process(delta: float) -> void:
 		if not body.is_playing():
 			body.play("bob")
 	elif body.is_playing():
-		body.stop()  # rewinds to frame 0, the neutral standing pose
+		body.stop() # rewinds to frame 0, the neutral standing pose
 
 
 func _process(delta: float) -> void:
-	_apply_rig()
-
-
 	var target := global_position.angle_to_point(get_aim_point())
 	hand_rig.rotation = lerp_angle(hand_rig.rotation, target, 1.0 - exp(-aim_speed * delta))
+	_apply_rig()
 
 
 	var from_right := absf(wrapf(hand_rig.rotation, -PI, PI))
@@ -83,10 +105,8 @@ func _process(delta: float) -> void:
 		body.flip_h = _aiming_left
 
 
-
 func _apply_rig() -> void:
 	body.scale = Vector2.ONE * body_scale
 	hand_l.scale = Vector2.ONE * hand_scale
 	hand_r.scale = Vector2.ONE * hand_scale
-	hand_l.position = Vector2(hand_radius, -hand_separation)
-	hand_r.position = Vector2(hand_radius, hand_separation)
+	hand_rig.position = Vector2(hand_radius, 0).rotated(hand_rig.rotation)
