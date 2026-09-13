@@ -10,15 +10,30 @@ const BUS_SFX := "SFX"
 @onready var sfx_slider: HSlider = %SFX
 
 
-func _on_play_button_up() -> void:
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
-
-
 func _ready() -> void:
+	visible = false
 	settings_panel.visible = false
-	_apply_starting_volume(master_slider, BUS_MASTER)
-	_apply_starting_volume(music_slider, BUS_MUSIC)
-	_apply_starting_volume(sfx_slider, BUS_SFX)
+	_sync_slider_from_bus(master_slider, BUS_MASTER)
+	_sync_slider_from_bus(music_slider, BUS_MUSIC)
+	_sync_slider_from_bus(sfx_slider, BUS_SFX)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not event.is_action_pressed("pause"):
+		return
+	if settings_panel.visible:
+		settings_panel.visible = false
+		get_viewport().set_input_as_handled()
+		return
+	if get_tree().paused:
+		_resume()
+	else:
+		_pause_game()
+	get_viewport().set_input_as_handled()
+
+
+func _on_resume_pressed() -> void:
+	_resume()
 
 
 func _on_settings_pressed() -> void:
@@ -41,10 +56,26 @@ func _on_button_pressed() -> void:
 	settings_panel.visible = false
 
 
-func _apply_starting_volume(slider: HSlider, bus_name: String) -> void:
-	var half := slider.max_value * 0.5
-	slider.set_value_no_signal(half)
-	_set_bus_from_slider(bus_name, half, slider.max_value)
+func _pause_game() -> void:
+	get_tree().paused = true
+	visible = true
+
+
+func _resume() -> void:
+	settings_panel.visible = false
+	visible = false
+	get_tree().paused = false
+
+
+func _sync_slider_from_bus(slider: HSlider, bus_name: String) -> void:
+	var bus_idx := AudioServer.get_bus_index(bus_name)
+	if bus_idx < 0:
+		return
+	if AudioServer.is_bus_mute(bus_idx):
+		slider.set_value_no_signal(0.0)
+		return
+	var linear := db_to_linear(AudioServer.get_bus_volume_db(bus_idx))
+	slider.set_value_no_signal(linear * slider.max_value)
 
 
 func _set_bus_from_slider(bus_name: String, value: float, max_value: float) -> void:

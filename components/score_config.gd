@@ -41,6 +41,7 @@ class_name ScoreConfig
 @export var zombie_points_on_kill: int = 10
 @export var zombie_points_on_kill_variance: int = 5
 @export var zombie_damage: int = 10
+@export var zombie_knockback_force: float = 300.0
 
 @export_group("Bat")
 @export var bat_speed: float = 110.0
@@ -54,3 +55,4 @@ class_name ScoreConfig
 @export var bat_points_on_kill_variance: int = 5
 @export var bat_bullet_damage: int = 10
 @export var bat_bullet_speed: float = 150.0
+@export var bat_knockback_force: float = 300.0

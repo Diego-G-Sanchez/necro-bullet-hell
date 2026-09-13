@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cop0gp0awv5hy" path="res://enemies/zombie/zombie.gd" id="1_20vm6"]
 [ext_resource type="PackedScene" uid="uid://cq8hn0s5svofn" path="res://components/health/health.tscn" id="1_hfuf0"]
+[ext_resource type="PackedScene" path="res://components/arena_bounds/arena_bounds.tscn" id="6_arena"]
 [ext_resource type="Script" uid="uid://dciw2d4b2myip" path="res://components/hurtbox/hurt_box.gd" id="2_bwstf"]
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="3_20vm6"]
 [ext_resource type="Texture2D" uid="uid://c731gyge3e2ay" path="res://assets/zombie.png" id="5_20vm6"]
@@ -13,14 +14,17 @@ radius = 47.15413
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bwstf"]
 
-[node name="Zombie" type="CharacterBody2D" unique_id=2132140099 groups=["Enemy"]]
+[node name="Zombie" type="CharacterBody2D" unique_id=2132140099 node_paths=PackedStringArray("arena_bounds") groups=["Enemy"]]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_20vm6")
+arena_bounds = NodePath("ArenaBounds")
 
 [node name="Health" parent="." unique_id=889141822 instance=ExtResource("1_hfuf0")]
 unique_name_in_owner = true
 max_health = 2
+
+[node name="ArenaBounds" parent="." instance=ExtResource("6_arena")]
 
 [node name="HitBox" type="Area2D" parent="." unique_id=194930299 groups=["Enemy"]]
 position = Vector2(0, -6.000002)

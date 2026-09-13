@@ -35,8 +35,15 @@ func _on_area_entered(area: Area2D) -> void:
 			if "delete_bullet" in p: 
 				p.delete_bullet()
 		
-		if oppositional_group == "Player":
-			#TODO: Implement knockback here
-			var p = get_parent()
-			#if is_instance_valid(p):
-				#p.apply_knockback(area.get_parent().get_parent().global_position, Globals.knockback_force)
+		var knockback_target := find_parent_with_method(self, "apply_knockback")
+		if knockback_target:
+			knockback_target.apply_knockback(area.global_position)
+
+
+func find_parent_with_method(start: Node, method: StringName) -> Node:
+	var current := start
+	while is_instance_valid(current):
+		if current.has_method(method):
+			return current
+		current = current.get_parent()
+	return null

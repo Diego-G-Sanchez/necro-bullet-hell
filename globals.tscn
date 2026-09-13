@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" uid="uid://bd5r3rby3f86c" path="res://globals.gd" id="1_globals"]
+[ext_resource type="AudioStream" uid="uid://c61xjwj2gpi2n" path="res://sounds/music/SongOfTheSummer2.wav" id="2_theme"]
+
+[node name="Globals" type="Node"]
+script = ExtResource("1_globals")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_theme")
+bus = &"Music"

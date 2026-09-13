@@ -4,6 +4,7 @@ class_name Player
 @export_group("Components")
 @export var health_component: HealthComponent
 @export var sm: ScoreManager
+@export var arena_bounds: ArenaBounds
 
 # Top-down movement + a hand rig that aims at the cursor.
 # HandRig lives in a ring around the player (inner..outer radius), faces the
@@ -59,7 +60,6 @@ var mage_frost_cd: float = 0.0
 var mage_fireball_cd: float = 0.0
 
 
-	
 func _ready() -> void:
 	hand_l.position = Vector2(0, -hand_separation)
 	hand_r.position = Vector2(0, hand_separation)
@@ -92,6 +92,7 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
 	move_and_slide()
+	arena_bounds.apply(delta)
 
 
 func _process(delta: float) -> void:

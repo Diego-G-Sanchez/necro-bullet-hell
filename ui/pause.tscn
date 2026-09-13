@@ -1,7 +1,6 @@
-[gd_scene format=3 uid="uid://f1hxojdn368j"]
+[gd_scene format=3 uid="uid://0ex62gk6em53"]
 
-[ext_resource type="Script" uid="uid://dnbqx8kx570m3" path="res://ui/start_screen.gd" id="1_s6cxg"]
-[ext_resource type="AudioStream" uid="uid://bmysihpktvrij" path="res://sounds/music/Intro.wav" id="2_50anp"]
+[ext_resource type="Script" path="res://ui/pause.gd" id="1_pause"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0541"]
 bg_color = Color(0.35686275, 0.1764706, 0.5647059, 1)
@@ -9,73 +8,62 @@ bg_color = Color(0.35686275, 0.1764706, 0.5647059, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oo8kp"]
 bg_color = Color(0.23529412, 0.11372549, 0.36078432, 1)
 
-[node name="Start" type="Control" unique_id=772784623]
+[node name="Pause" type="Control"]
+process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_s6cxg")
+script = ExtResource("1_pause")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1773170121]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.379
-anchor_right = 0.604
-anchor_bottom = 1.0
-offset_left = -0.16000366
-offset_top = 0.1599884
-offset_right = 0.15997314
-offset_bottom = -0.16001892
+anchor_left = 0.35
+anchor_top = 0.2
+anchor_right = 0.65
+anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1703144022]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=569000991]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1505156575]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
-size_flags_stretch_ratio = 0.0
-text = "Dead Hands"
+text = "paused"
+horizontal_alignment = 1
 
-[node name="Play" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=753139962]
+[node name="Resume" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-size_flags_vertical = 0
-size_flags_stretch_ratio = 0.25
 theme_override_styles/normal = SubResource("StyleBoxFlat_u0541")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oo8kp")
-text = "Play
-"
+text = "Resume"
 
-[node name="Settings" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1834130015]
+[node name="Settings" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-size_flags_vertical = 0
-size_flags_stretch_ratio = 0.25
 theme_override_styles/normal = SubResource("StyleBoxFlat_u0541")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oo8kp")
 text = "Settings"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1028298619]
-stream = ExtResource("2_50anp")
-autoplay = true
-bus = &"Music"
-
-[node name="SettingsPage" type="Control" parent="." unique_id=794871055]
+[node name="SettingsPage" type="Control" parent="."]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -85,7 +73,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="SettingsPage" unique_id=1397031677]
+[node name="Panel" type="Panel" parent="SettingsPage"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 13
@@ -95,25 +83,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsPage/Panel" unique_id=1940284462]
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPage/Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -0.76000977
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPage/Panel/MarginContainer" unique_id=1965460257]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPage/Panel/MarginContainer"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="SettingsPage/Panel/MarginContainer/VBoxContainer" unique_id=782238175]
+[node name="Panel" type="Panel" parent="SettingsPage/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel" unique_id=795545003]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -121,22 +108,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel/VBoxContainer" unique_id=557338534]
+[node name="Label" type="Label" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Master Volume"
 
-[node name="Master Volume" type="HSlider" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel/VBoxContainer" unique_id=2022158665]
+[node name="Master Volume" type="HSlider" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 value = 50.0
 
-[node name="Panel2" type="Panel" parent="SettingsPage/Panel/MarginContainer/VBoxContainer" unique_id=1479907253]
+[node name="Panel2" type="Panel" parent="SettingsPage/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel2" unique_id=1835533614]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -144,22 +131,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel2/VBoxContainer" unique_id=635840849]
+[node name="Label" type="Label" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
 text = "Music"
 
-[node name="Music" type="HSlider" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel2/VBoxContainer" unique_id=578471432]
+[node name="Music" type="HSlider" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel2/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 value = 50.0
 
-[node name="Panel3" type="Panel" parent="SettingsPage/Panel/MarginContainer/VBoxContainer" unique_id=515455889]
+[node name="Panel3" type="Panel" parent="SettingsPage/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel3" unique_id=1938925823]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -167,25 +154,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel3/VBoxContainer" unique_id=482462615]
+[node name="Label" type="Label" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel3/VBoxContainer"]
 layout_mode = 2
 text = "SFX"
 
-[node name="SFX" type="HSlider" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel3/VBoxContainer" unique_id=1565744006]
+[node name="SFX" type="HSlider" parent="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel3/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 value = 50.0
 
-[node name="Button" type="Button" parent="SettingsPage/Panel/MarginContainer/VBoxContainer" unique_id=1832834659]
+[node name="Button" type="Button" parent="SettingsPage/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_u0541")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oo8kp")
 text = "Exit Settings"
 
-[connection signal="button_up" from="PanelContainer/MarginContainer/VBoxContainer/Play" to="." method="_on_play_button_up"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="value_changed" from="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel/VBoxContainer/Master Volume" to="." method="_on_master_volume_value_changed"]
 [connection signal="value_changed" from="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel2/VBoxContainer/Music" to="." method="_on_music_value_changed"]
