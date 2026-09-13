@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnbqx8kx570m3" path="res://ui/start_screen.gd" id="1_s6cxg"]
 [ext_resource type="AudioStream" uid="uid://bmysihpktvrij" path="res://sounds/music/Intro.wav" id="2_50anp"]
+[ext_resource type="PackedScene" uid="uid://6xmfygh63m6r" path="res://ui/Transition.tscn" id="3_nledq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0541"]
 bg_color = Color(0.35686275, 0.1764706, 0.5647059, 1)
@@ -184,6 +185,13 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_u0541")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oo8kp")
 text = "Exit Settings"
+
+[node name="Transition" parent="." unique_id=293391647 instance=ExtResource("3_nledq")]
+layout_mode = 1
+anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
+next_scene = "res://scenes/main.tscn"
 
 [connection signal="button_up" from="PanelContainer/MarginContainer/VBoxContainer/Play" to="." method="_on_play_button_up"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]

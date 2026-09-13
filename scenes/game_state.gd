@@ -3,7 +3,7 @@ class_name GameState
 
 @export var round_length: float = 100
 @onready var round_timer: Timer = $RoundTimer
-
+@export var trans: Transition 
 @export var sm: ScoreManager
 
 func _ready() -> void:
@@ -16,4 +16,5 @@ func _on_round_timer_timeout() -> void:
 
 func game_over():
 	Globals.final_score = int(sm.score)
-	get_tree().change_scene_to_file("res://ui/game_over.tscn")
+	trans.fade_start()
+	#get_tree().change_scene_to_file("res://ui/game_over.tscn")

@@ -5,11 +5,16 @@
 [resource]
 script = ExtResource("1_cfg")
 percent_of_score_left_to_show_vignette = 2.8
-parry_cost = 5.0
+parry_cost = 125.0
 wolf_claw_cd = 0.44
+wolf_speed = 250.0
+shot_damage = 25
 mage_frost_cd = 0.2
-mage_explosion_damage = 20
+mage_explosion_damage = 15
 mage_fireball_cd = 4.0
-mage_swap_cost = 20.0
+mage_swap_cost = 1250.0
+mage_speed = 500.0
 zombie_knockback_force = 200.0
+thiccums_points_on_kill = 1250
+thiccums_knockback_force = 100.0
 bat_knockback_force = 200.0

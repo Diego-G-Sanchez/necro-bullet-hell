@@ -4,6 +4,7 @@ extends Control
 
 func _ready() -> void:
 	if not Globals.music.playing:
+		$PanelContainer/MarginContainer/VBoxContainer/Label.text = "YOU WIN!"
 		Globals.music.play()
 	if Globals.final_score > 0: 
 		score_label.text = 'Your Score: \n' + str(Globals.final_score)
@@ -17,4 +18,5 @@ func _ready() -> void:
 
 
 func _on_button_button_up() -> void:
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	$Transition.fade_start()
+	#get_tree().change_scene_to_file("res://scenes/main.tscn")

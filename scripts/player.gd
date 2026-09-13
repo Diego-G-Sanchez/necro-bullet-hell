@@ -55,7 +55,10 @@ enum Hands {
 	Mage,
 }
 
-var hand_state: Hands = Hands.Wolf
+var hand_state: Hands = Hands.Wolf:
+	set(value):
+		hand_state = value
+		_apply_hand_speed()
 
 #Store the active cooldown values here. 
 var wolf_parry_cd: float = 0.0
@@ -75,8 +78,21 @@ func _ready() -> void:
 
 	#Connect to the healthComponent
 	health_component.damage_taken.connect(take_score_damage)
+	_apply_hand_speed()
 
 	
+func _apply_hand_speed() -> void:
+	if sm == null or sm.config == null:
+		return
+	match hand_state:
+		Hands.Wolf:
+			max_speed = sm.config.wolf_speed
+		Hands.Shooter:
+			max_speed = sm.config.sharp_speed
+		Hands.Mage:
+			max_speed = sm.config.mage_speed
+
+
 func take_score_damage(dmg_taken):
 	if sm.score > 0:
 		sm.change_score(-dmg_taken, global_position)

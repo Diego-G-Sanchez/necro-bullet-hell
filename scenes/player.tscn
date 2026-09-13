@@ -461,6 +461,15 @@ _data = {
 &"RESET": SubResource("Animation_jej6c")
 }
 
+[sub_resource type="Gradient" id="Gradient_f1ej7"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f1ej7"]
+gradient = SubResource("Gradient_f1ej7")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
 [node name="Player" type="CharacterBody2D" unique_id=1221017178 node_paths=PackedStringArray("health_component", "arena_bounds", "walk_sound") groups=["Player"]]
 motion_mode = 1
 script = ExtResource("1_player")
@@ -578,6 +587,14 @@ stream = ExtResource("14_f1ej7")
 volume_db = -17.227
 pitch_scale = 0.65
 bus = &"SFX"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=761150740]
+scale = Vector2(4.3200006, 3.7182505)
+color = Color(0.37254903, 0.29411766, 0.54509807, 0.60784316)
+energy = 1.55
+texture = SubResource("GradientTexture2D_f1ej7")
+texture_scale = 1.87
+height = 100.0
 
 [connection signal="animation_finished" from="HandRig/AnimationPlayer" to="HandRig" method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="HandRig/AnimationPlayer" to="HandRig" method="_on_animation_player_animation_started"]

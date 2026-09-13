@@ -19,7 +19,7 @@ func create_explosion(c):
 	
 func initialize(config: ScoreConfig):
 	c = config
-	damage = config.shot_damage
+	damage = 0
 	speed = config.shot_speed
 	Sfx.play(preload("res://sounds/sfx/shoot_fire.wav"))
 	hb.set_damage(damage)

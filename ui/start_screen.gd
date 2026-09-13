@@ -11,7 +11,8 @@ const BUS_SFX := "SFX"
 
 
 func _on_play_button_up() -> void:
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	#get_tree().change_scene_to_file("res://scenes/main.tscn")
+	$Transition.fade_start()
 
 
 func _ready() -> void:

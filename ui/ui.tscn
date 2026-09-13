@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bgslp2j7ndatw" path="res://ui/ui.gd" id="1_f5cxw"]
 [ext_resource type="StyleBox" uid="uid://b4ui5hdpsgpb8" path="res://ui/new_style_box_flat.tres" id="1_u7n8c"]
 [ext_resource type="Texture2D" uid="uid://ke5nv1qk8xr2" path="res://assets/blooddrop.png" id="3_wl5ax"]
+[ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="4_tf0e0"]
+[ext_resource type="Texture2D" uid="uid://umqco3nnchf3" path="res://assets/batbullet.png" id="5_obcwv"]
 
 [node name="UI" type="Control" unique_id=460964894]
 layout_mode = 3
@@ -70,3 +72,99 @@ size_flags_stretch_ratio = 0.56
 text = "Time"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="." unique_id=182087148]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="PanelContainer2" unique_id=1983990988]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2/Panel" unique_id=66863014]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/Panel/MarginContainer" unique_id=23705550]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer" unique_id=2052528971]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1725526678]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=149696977]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_tf0e0")
+
+[node name="Parry" type="ProgressBar" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=673073799]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+fill_mode = 1
+show_percentage = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=957573374]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2" unique_id=443495063]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_obcwv")
+
+[node name="SharpShoot" type="ProgressBar" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2" unique_id=1967659851]
+custom_minimum_size = Vector2(0, 33.95)
+layout_mode = 2
+size_flags_horizontal = 3
+fill_mode = 3
+show_percentage = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer" unique_id=250649826]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1300056927]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=1032737664]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_tf0e0")
+
+[node name="Firebomb" type="ProgressBar" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=1894123713]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+fill_mode = 1
+show_percentage = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=108999751]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2" unique_id=1058527898]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_obcwv")
+
+[node name="SharpDash" type="ProgressBar" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2" unique_id=83661590]
+custom_minimum_size = Vector2(0, 33.95)
+layout_mode = 2
+size_flags_horizontal = 3
+fill_mode = 3
+show_percentage = false

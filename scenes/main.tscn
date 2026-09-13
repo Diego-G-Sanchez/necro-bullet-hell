@@ -10,8 +10,10 @@
 [ext_resource type="Script" uid="uid://bts27hpbkj0u5" path="res://ui/vignette.gd" id="7_choun"]
 [ext_resource type="Resource" uid="uid://dk4nar2t6v8nq" path="res://components/score_config.tres" id="7_scorecfg"]
 [ext_resource type="Script" uid="uid://brbtaetx3ubaf" path="res://components/wave_manager.gd" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://6xmfygh63m6r" path="res://ui/Transition.tscn" id="9_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://d0yhjpir3ngkj" path="res://enemies/bat/bat.tscn" id="12_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://0ex62gk6em53" path="res://ui/pause.tscn" id="13_pause"]
+[ext_resource type="PackedScene" uid="uid://dth1ccum5tscn" path="res://enemies/thiccums/thiccums.tscn" id="13_trceg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tipki"]
 shader = ExtResource("6_85g3d")
@@ -25,14 +27,16 @@ shader_parameter/outer_radius = 1.0
 script = ExtResource("1_grid")
 
 [node name="Player" parent="." unique_id=570212352 node_paths=PackedStringArray("sm") instance=ExtResource("2_player")]
+position = Vector2(81, 118)
 sm = NodePath("../ScoreManager")
 hand_radius = 18.0
 
 [node name="Zombie" parent="." unique_id=2132140099 instance=ExtResource("3_sugp2")]
 position = Vector2(249, 46)
 
-[node name="GameState" parent="." unique_id=2102336360 node_paths=PackedStringArray("sm") instance=ExtResource("4_tbgi4")]
+[node name="GameState" parent="." unique_id=2102336360 node_paths=PackedStringArray("trans", "sm") instance=ExtResource("4_tbgi4")]
 round_length = 128.0
+trans = NodePath("../CanvasLayer/Transition")
 sm = NodePath("../ScoreManager")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=398792461 groups=["Camera"]]
@@ -56,6 +60,10 @@ script = ExtResource("7_choun")
 
 [node name="Pause" parent="CanvasLayer" unique_id=1038666224 instance=ExtResource("13_pause")]
 
+[node name="Transition" parent="CanvasLayer" unique_id=293391647 instance=ExtResource("9_a8y0u")]
+anchors_preset = 15
+next_scene = "res://ui/game_over.tscn"
+
 [node name="ScoreManager" type="Node" parent="." unique_id=2073533039 node_paths=PackedStringArray("p")]
 script = ExtResource("6_tefeu")
 p = NodePath("../Player")
@@ -65,6 +73,7 @@ config = ExtResource("7_scorecfg")
 script = ExtResource("8_tipki")
 zombie = ExtResource("3_sugp2")
 bat = ExtResource("12_eb6dy")
+thiccums = ExtResource("13_trceg")
 camera = NodePath("../Camera2D")
 
 [node name="Timer" type="Timer" parent="WaveManager" unique_id=1448802647]
