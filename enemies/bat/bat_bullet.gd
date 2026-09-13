@@ -6,12 +6,15 @@ class_name BatBullet
 var damage: int = 1
 var speed: float = 150
 var dir:= Vector2.ZERO
+var special: bool = false
 
 
 func initialize(config: ScoreConfig):
 	damage = config.bat_bullet_damage
 	speed = config.bat_bullet_speed
 	hb.set_damage(damage)
+	if special:
+		scale *= 1.5
 
 func delete_bullet():
 	queue_free()

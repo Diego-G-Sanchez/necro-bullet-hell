@@ -1,0 +1,252 @@
+[gd_scene format=3 uid="uid://dth1ccum5tscn"]
+
+[ext_resource type="Script" uid="uid://dth1ccumsscpt" path="res://enemies/thiccums/thiccums.gd" id="1_20vm6"]
+[ext_resource type="PackedScene" uid="uid://cq8hn0s5svofn" path="res://components/health/health.tscn" id="1_hfuf0"]
+[ext_resource type="Script" uid="uid://dciw2d4b2myip" path="res://components/hurtbox/hurt_box.gd" id="2_bwstf"]
+[ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="3_20vm6"]
+[ext_resource type="Texture2D" uid="uid://c731gyge3e2ay" path="res://assets/zombie.png" id="5_20vm6"]
+[ext_resource type="Texture2D" uid="uid://bejfn11yi1iyk" path="res://assets/circle2.png" id="5_dveb8"]
+[ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="6_arena"]
+[ext_resource type="PackedScene" uid="uid://cej32yq2uw0e3" path="res://enemies/frost.tscn" id="7_ryn3m"]
+[ext_resource type="Texture2D" uid="uid://cdo6x5whtwnq4" path="res://assets/pixel.png" id="9_dveb8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_smehm"]
+radius = 184.84
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
+radius = 86.63357
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
+atlas = ExtResource("5_20vm6")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
+atlas = ExtResource("5_20vm6")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
+atlas = ExtResource("5_20vm6")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3"]
+atlas = ExtResource("5_20vm6")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4"]
+atlas = ExtResource("5_20vm6")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5"]
+atlas = ExtResource("5_20vm6")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6"]
+atlas = ExtResource("5_20vm6")
+region = Rect2(144, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7"]
+atlas = ExtResource("5_20vm6")
+region = Rect2(168, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_body"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7")
+}],
+"loop": 1,
+"name": &"bob",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bwstf"]
+
+[sub_resource type="Animation" id="Animation_smehm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5.5, 5.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_fjrip"]
+resource_name = "walk"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(9.734, 9.734), Vector2(9.734, 9.734), Vector2(9.734, 9.734), Vector2(9.734, 9.734), Vector2(9.734, 9.734)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.1308996938995747, 0.0, 0.14486232791552955]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_smehm"]
+_data = {
+&"RESET": SubResource("Animation_smehm"),
+&"walk": SubResource("Animation_fjrip")
+}
+
+[sub_resource type="Curve" id="Curve_1ekw4"]
+_data = [Vector2(0, 0.58506227), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.5509018, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_sqiby"]
+curve = SubResource("Curve_1ekw4")
+
+[sub_resource type="Gradient" id="Gradient_dveb8"]
+offsets = PackedFloat32Array(0, 0.99635035, 1)
+colors = PackedColorArray(0.23137255, 0.05490196, 0.25882354, 1, 0.6117647, 0.30980393, 0.5254902, 1, 0.6117647, 0.30980393, 0.5254902, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dveb8"]
+gradient = SubResource("Gradient_dveb8")
+
+[sub_resource type="Curve" id="Curve_dveb8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), -1.35344, -1.35344, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_mjwy0"]
+curve = SubResource("Curve_dveb8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hrxsu"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 251.68
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, -1, 0)
+initial_velocity_max = 101.31
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -7.190002
+tangential_accel_max = 7.1899977
+scale_min = 3.27
+scale_max = 22.6
+scale_curve = SubResource("CurveTexture_mjwy0")
+color_ramp = SubResource("GradientTexture1D_dveb8")
+alpha_curve = SubResource("CurveTexture_sqiby")
+
+[node name="Thiccums" type="CharacterBody2D" unique_id=1847293847 node_paths=PackedStringArray("arena_bounds") groups=["Enemy"]]
+scale = Vector2(0.785, 0.785)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_20vm6")
+arena_bounds = NodePath("ArenaBounds")
+
+[node name="Health" parent="." unique_id=889141822 instance=ExtResource("1_hfuf0")]
+unique_name_in_owner = true
+max_health = 50
+
+[node name="ArenaBounds" parent="." unique_id=1185797277 instance=ExtResource("6_arena")]
+
+[node name="HitBox" type="Area2D" parent="." unique_id=194930299 groups=["Enemy"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_20vm6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1927889996]
+shape = SubResource("CircleShape2D_smehm")
+
+[node name="AuraSprite" type="Sprite2D" parent="HitBox" unique_id=1927889997]
+modulate = Color(0.75, 0.12, 0.22, 0.28)
+scale = Vector2(3.115, 3.115)
+texture = ExtResource("5_dveb8")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1099882132 node_paths=PackedStringArray("health_component") groups=["Enemy"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_bwstf")
+oppositional_group = "Player"
+health_component = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1421265245]
+scale = Vector2(1.0042017, 1)
+shape = SubResource("CircleShape2D_hrxsu")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=682747211]
+scale = Vector2(5.5, 5.5)
+sprite_frames = SubResource("SpriteFrames_body")
+animation = &"bob"
+frame_progress = 0.28186113
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=227911424]
+shape = SubResource("CircleShape2D_bwstf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1837596762]
+libraries/ = SubResource("AnimationLibrary_smehm")
+autoplay = &"walk"
+
+[node name="Knockback" type="Node" parent="." unique_id=760548441]
+
+[node name="Frost" parent="." unique_id=342387197 node_paths=PackedStringArray("sprite") instance=ExtResource("7_ryn3m")]
+sprite = NodePath("../Sprite2D")
+
+[node name="AuraTick" type="Timer" parent="." unique_id=1927889998]
+wait_time = 0.5
+autostart = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=291986426]
+texture = ExtResource("9_dveb8")
+lifetime = 1.6900000000000002
+process_material = SubResource("ParticleProcessMaterial_hrxsu")
+
+[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]
+[connection signal="timeout" from="AuraTick" to="." method="_on_aura_tick"]

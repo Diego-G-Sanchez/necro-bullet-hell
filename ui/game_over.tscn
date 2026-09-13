@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cp3a4y2ejfcr0"]
 
 [ext_resource type="Script" uid="uid://bdcf0b1e38pok" path="res://ui/game_over.gd" id="1_oo8kp"]
+[ext_resource type="PackedScene" uid="uid://6xmfygh63m6r" path="res://ui/Transition.tscn" id="2_5eixk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0541"]
 bg_color = Color(0.35686275, 0.1764706, 0.5647059, 1)
@@ -64,5 +65,10 @@ size_flags_stretch_ratio = 0.25
 theme_override_styles/normal = SubResource("StyleBoxFlat_u0541")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oo8kp")
 text = "Play again"
+
+[node name="Transition" parent="." unique_id=293391647 instance=ExtResource("2_5eixk")]
+layout_mode = 1
+anchors_preset = 15
+next_scene = "res://scenes/main.tscn"
 
 [connection signal="button_up" from="PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_button_button_up"]

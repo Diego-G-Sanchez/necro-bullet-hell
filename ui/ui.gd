@@ -41,7 +41,7 @@ func _apply_blood_debt(debt: float) -> void:
 
 func _process(delta: float) -> void:
 	if gs.round_timer:
-		time_label.text = str(gs.round_timer.time_left).left(4)
+		time_label.text = str(gs.round_timer.time_left).left(5)
 		
 	if sm.score:
 		score_label.text = str(int(sm.score))

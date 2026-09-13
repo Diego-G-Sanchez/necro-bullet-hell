@@ -3,8 +3,11 @@ class_name WaveManager
 
 @export var zombie: PackedScene
 @export var bat: PackedScene
+@export var thiccums: PackedScene
+
 @export var camera: Camera2D
 @export var zombie_weight: float = 0.8
+@export var thiccums_weight: float = .1
 @export var bat_cluster_min: int = 1
 @export var bat_cluster_max: int = 5
 @export var bat_cluster_spread: float = 48.0
@@ -29,7 +32,9 @@ func get_point_outside_camera() -> Vector2:
 
 
 func _on_timer_timeout() -> void:
-	if randf() < zombie_weight:
+	if randf() < thiccums_weight:
+		spawn_thiccums()
+	elif randf() < zombie_weight:
 		spawn_zombie()
 	else:
 		spawn_bat_cluster()
@@ -39,6 +44,12 @@ func spawn_zombie() -> void:
 	var z = zombie.instantiate()
 	z.global_position = get_point_outside_camera()
 	get_tree().root.add_child(z)
+
+
+func spawn_thiccums() -> void:
+	var t = thiccums.instantiate()
+	t.global_position = get_point_outside_camera()
+	get_tree().root.add_child(t)
 
 
 func spawn_bat_cluster() -> void:

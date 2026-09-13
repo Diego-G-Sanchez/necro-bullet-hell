@@ -12,6 +12,7 @@ var player_ref: Player
 var config: ScoreConfig
 
 var knockback := Vector2.ZERO
+var shots_fired := 0
 
 func _ready() -> void:
 	player_ref = get_tree().get_first_node_in_group("Player")
@@ -47,11 +48,12 @@ func _process(delta: float) -> void:
 		if dist_to_player < config.bat_keep_away_distance:
 			velocity = velocity.move_toward(-dir * speed, acceleration * config.bat_flee_acceleration_mult * delta)
 		velocity += knockback
-			
+		$Sprite2D.flip_h = dir.x < 0.0 # player is to the left, so the zombie is approaching from the left
+
 	move_and_slide()
 	arena_bounds.apply(delta)
 		
-		
+	
 func _on_timer_timeout() -> void:
 	timer.wait_time = randf_range(config.bat_fire_interval_min, config.bat_fire_interval_max)
 	shoot()
@@ -59,12 +61,21 @@ func apply_frost():
 	$Frost.apply(config.mage_frost_slow, config.zombie_speed, config.mage_slow_duration)
 
 func shoot():
+
+	shots_fired += 1
 	var b = bullet.instantiate() as BatBullet
 	b.global_position = global_position
+	b.special = shots_fired % 3 == 0
 	b.initialize(config)
 	b.dir = (player_ref.global_position - global_position).normalized()
 	get_tree().root.add_child(b)
-	
+	$Sprite2D.play("shoot")
+
 func apply_knockback(from_position: Vector2) -> void:
 	var dir = (global_position - from_position).normalized()
 	knockback = dir * config.bat_knockback_force
+
+
+func _on_sprite_2d_animation_finished() -> void:
+	if $Sprite2D.animation == 'shoot':
+		$Sprite2D.play("idle")
