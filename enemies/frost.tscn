@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cej32yq2uw0e3"]
+
+[ext_resource type="Script" uid="uid://sb40ex6seypx" path="res://enemies/frost.gd" id="1_37sd3"]
+
+[node name="Frost" type="Node" unique_id=342387197]
+script = ExtResource("1_37sd3")
+
+[node name="Timer" type="Timer" parent="." unique_id=275953255]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

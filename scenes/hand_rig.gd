@@ -9,6 +9,12 @@ extends Node2D
 @onready var meleeHB: HitBox = %MeleeHitBox
 @export var parry_anim: AnimationPlayer
 
+
+var bulletSharp = preload("res://scenes/playerbullet.tscn")
+var bulletFrost = preload("res://scenes/frost.tscn")
+var bulletFireball = preload("res://scenes/fire_ball.tscn")
+
+
 signal dash_used
 
 const WOLF_SLASH_SFX := preload("res://sounds/sfx/wolfattack.wav")
@@ -73,7 +79,7 @@ func wolf_parry():
 
 func sharp_shoot():
 	if player.sharp_shoot_cd <= 0.0:
-		shoot()
+		shoot(bulletSharp)
 		player.sm.change_score(-player.sm.config.shot_cost, global_position)
 		player.sharp_shoot_cd = player.sm.config.sharp_shoot_cd
 
@@ -85,18 +91,20 @@ func sharp_dash():
 
 func mage_frost():
 	if player.mage_frost_cd <= 0.0:
+		shoot(bulletFrost)
 		player.sm.change_score(-player.sm.config.frost_cost, global_position)
 		player.mage_frost_cd = player.sm.config.mage_frost_cd
 
 func mage_fire_bomb():
+	
 	if player.mage_fireball_cd <= 0.0:
+		shoot(bulletFireball)
 		player.sm.change_score(-player.sm.config.fire_ball_cost, global_position)
 		player.mage_fireball_cd = player.sm.config.mage_fireball_cd
 
 
-var bullet = preload("res://scenes/playerbullet.tscn")
-func shoot():
-	var b = bullet.instantiate() as PlayerBullet
+func shoot(bullet: PackedScene):
+	var b = bullet.instantiate()
 	b.global_position = global_position
 	b.initialize(player.sm.config)
 

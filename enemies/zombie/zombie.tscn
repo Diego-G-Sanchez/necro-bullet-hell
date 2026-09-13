@@ -2,15 +2,17 @@
 
 [ext_resource type="Script" uid="uid://cop0gp0awv5hy" path="res://enemies/zombie/zombie.gd" id="1_20vm6"]
 [ext_resource type="PackedScene" uid="uid://cq8hn0s5svofn" path="res://components/health/health.tscn" id="1_hfuf0"]
-[ext_resource type="PackedScene" path="res://components/arena_bounds/arena_bounds.tscn" id="6_arena"]
 [ext_resource type="Script" uid="uid://dciw2d4b2myip" path="res://components/hurtbox/hurt_box.gd" id="2_bwstf"]
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="3_20vm6"]
 [ext_resource type="Texture2D" uid="uid://c731gyge3e2ay" path="res://assets/zombie.png" id="5_20vm6"]
+[ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="6_arena"]
+[ext_resource type="PackedScene" uid="uid://cej32yq2uw0e3" path="res://enemies/frost.tscn" id="7_ryn3m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_smehm"]
 radius = 47.15413
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
+radius = 27.73
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bwstf"]
 
@@ -24,7 +26,7 @@ arena_bounds = NodePath("ArenaBounds")
 unique_name_in_owner = true
 max_health = 2
 
-[node name="ArenaBounds" parent="." instance=ExtResource("6_arena")]
+[node name="ArenaBounds" parent="." unique_id=1185797277 instance=ExtResource("6_arena")]
 
 [node name="HitBox" type="Area2D" parent="." unique_id=194930299 groups=["Enemy"]]
 position = Vector2(0, -6.000002)
@@ -55,5 +57,8 @@ texture = ExtResource("5_20vm6")
 shape = SubResource("CircleShape2D_bwstf")
 
 [node name="Knockback" type="Node" parent="." unique_id=760548441]
+
+[node name="Frost" parent="." unique_id=342387197 node_paths=PackedStringArray("sprite") instance=ExtResource("7_ryn3m")]
+sprite = NodePath("../Sprite2D")
 
 [connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]

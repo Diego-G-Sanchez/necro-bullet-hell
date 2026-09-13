@@ -55,6 +55,8 @@ func _process(delta: float) -> void:
 func _on_timer_timeout() -> void:
 	timer.wait_time = randf_range(config.bat_fire_interval_min, config.bat_fire_interval_max)
 	shoot()
+func apply_frost():
+	$Frost.apply(config.mage_frost_slow, config.zombie_speed, config.mage_slow_duration)
 
 func shoot():
 	var b = bullet.instantiate() as BatBullet

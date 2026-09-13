@@ -35,6 +35,11 @@ func _on_area_entered(area: Area2D) -> void:
 			if "delete_bullet" in p: 
 				p.delete_bullet()
 		
+		if area.is_in_group("FrostExplosion") && oppositional_group != "Enemy":
+			var frost_slow_target := find_parent_with_method(self, "apply_frost")
+			if frost_slow_target:
+				frost_slow_target.apply_frost()
+		
 		var knockback_target := find_parent_with_method(self, "apply_knockback")
 		if knockback_target:
 			knockback_target.apply_knockback(area.global_position)

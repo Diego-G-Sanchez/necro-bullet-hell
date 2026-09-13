@@ -12,11 +12,13 @@ class_name ScoreConfig
 @export var drain_per_second: float = 2.0
 @export var slash_cost: float = 1.0
 @export var parry_cost: float = 1.0
-@export var wolf_swap_cost: float = 5
+
 
 @export var slash_damage: float = 1.0
 @export var wolf_parry_cd: float = 1.0
 @export var wolf_claw_cd: float = .33
+
+@export var wolf_swap_cost: float = 5
 
 @export_group("Sharp")
 @export var shot_cost: float = 1.0
@@ -24,16 +26,21 @@ class_name ScoreConfig
 @export var shot_speed: float = 400.0
 @export var shot_hit_reward_mult: float = 1.5
 @export var dash_cost: float = 1.0
-@export var sharp_swap_cost: float = 10.0
+
 @export var sharp_shoot_cd: float = 1.0
 @export var sharp_dash_cd: float = 1.0
+@export var sharp_swap_cost: float = 10.0
 
 @export_group("Mage")
 @export var frost_cost: float = 1.0
-@export var fire_ball_cost: float = 10.0
-@export var mage_swap_cost: float = 10.0
+@export var mage_frost_damage: int = 0
+@export var mage_frost_slow: float = 0.50
+@export var mage_slow_duration: float = 3.0
 @export var mage_frost_cd: float = 1.0
+@export var mage_explosion_damage: int = 2
+@export var fire_ball_cost: float = 10.0
 @export var mage_fireball_cd: float = 1.0
+@export var mage_swap_cost: float = 10.0
 
 @export_group("Zombie")
 @export var zombie_speed: float = 70.0

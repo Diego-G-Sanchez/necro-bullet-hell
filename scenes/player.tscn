@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="7_fjrip"]
 [ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://b7ucvftwk60fe" path="res://scenes/parry.gd" id="9_y4r1p"]
-[ext_resource type="PackedScene" path="res://components/arena_bounds/arena_bounds.tscn" id="10_arena"]
+[ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="10_arena"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 16.0
@@ -269,10 +269,10 @@ tracks/3/path = NodePath("Sprite2D:self_modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.1, 0.16666667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.34901962), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.34901962), Color(1, 1, 1, 0)]
 }
 tracks/4/type = "method"
 tracks/4/imported = false
@@ -337,7 +337,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.27058825)]
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jej6c"]
@@ -431,7 +431,7 @@ unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_jej6c")
 
 [node name="Sprite2D" type="Sprite2D" parent="Parry" unique_id=734849795]
-self_modulate = Color(1, 1, 1, 0.27058825)
+self_modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("9_ur7pv")

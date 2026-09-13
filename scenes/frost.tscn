@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dt04e4pnimrc7"]
+
+[ext_resource type="Script" path="res://scenes/playerbullet_frost.gd" id="1_7fy7u"]
+[ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="2_7jfqc"]
+[ext_resource type="PackedScene" path="res://scenes/frost_explosion.tscn" id="2_ggq3o"]
+[ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="3_circle"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
+
+[node name="Frost" type="Node2D" unique_id=1411213938 node_paths=PackedStringArray("hb")]
+script = ExtResource("1_7fy7u")
+hb = NodePath("HitBox")
+explosion = ExtResource("2_ggq3o")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=523821481 groups=["Player", "PlayerBullet"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_7jfqc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=810510188]
+shape = SubResource("CircleShape2D_hrxsu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=133018532]
+modulate = Color(0.35, 0.75, 1, 0.85)
+texture = ExtResource("3_circle")
+
+[node name="Lifetime" type="Timer" parent="." unique_id=1069559397]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

@@ -4,17 +4,18 @@
 [ext_resource type="Script" uid="uid://dciw2d4b2myip" path="res://components/hurtbox/hurt_box.gd" id="1_nwj43"]
 [ext_resource type="Script" uid="uid://cxpi5372pktnh" path="res://components/health/health.gd" id="2_ffxfj"]
 [ext_resource type="Texture2D" uid="uid://crynr0ct2mwye" path="res://assets/bat.png" id="3_kjrhy"]
-[ext_resource type="PackedScene" path="res://components/arena_bounds/arena_bounds.tscn" id="4_arena"]
+[ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="4_arena"]
+[ext_resource type="PackedScene" uid="uid://cej32yq2uw0e3" path="res://enemies/frost.tscn" id="6_gf3lj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_arbro"]
 
-[node name="Bat" type="CharacterBody2D" unique_id=1845500 node_paths=PackedStringArray("hc", "timer", "arena_bounds") groups=["Enemy"]]
+[node name="Bat" type="CharacterBody2D" unique_id=1845500 node_paths=PackedStringArray("hc", "arena_bounds", "timer") groups=["Enemy"]]
 script = ExtResource("1_ckyte")
 hc = NodePath("HealthComponent")
-timer = NodePath("Timer")
 arena_bounds = NodePath("ArenaBounds")
+timer = NodePath("Timer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1630525716]
 shape = SubResource("CircleShape2D_hrxsu")
@@ -34,13 +35,16 @@ script = ExtResource("2_ffxfj")
 max_health = 2
 metadata/_custom_type_script = "uid://cxpi5372pktnh"
 
-[node name="ArenaBounds" parent="." instance=ExtResource("4_arena")]
+[node name="ArenaBounds" parent="." unique_id=117890126 instance=ExtResource("4_arena")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1778700624]
 texture = ExtResource("3_kjrhy")
 
 [node name="Timer" type="Timer" parent="." unique_id=448045678]
 autostart = true
+
+[node name="Frost" parent="." unique_id=342387197 node_paths=PackedStringArray("sprite") instance=ExtResource("6_gf3lj")]
+sprite = NodePath("../Sprite2D")
 
 [connection signal="area_entered" from="Area2D" to="Area2D" method="_on_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

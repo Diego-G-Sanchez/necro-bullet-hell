@@ -35,14 +35,15 @@ func flash_red(dmg_taken:int):
 func apply_knockback(from_position: Vector2) -> void:
 	var knock_dir := (global_position - from_position).normalized()
 	knockback = knock_dir * config.zombie_knockback_force
+	
+func apply_frost():
+	$Frost.apply(config.mage_frost_slow, config.zombie_speed, config.mage_slow_duration)
 
 func _process(delta: float) -> void:
 	#reduce knockback value over time
 	knockback = knockback.move_toward(Vector2.ZERO, 14000 * delta)
 		
 	if is_instance_valid(player_ref):
-	
-		
 		dir = (player_ref.global_position - global_position).normalized()
 		velocity = velocity.move_toward(dir * speed, acceleration * delta)
 		velocity += knockback
