@@ -5,7 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://dclkk1cljl7jb" path="res://enemies/zombie/zombie.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://de5s3fdvddx56" path="res://ui/ui.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://byvcn5mtxnc1f" path="res://scenes/game_state.tscn" id="4_tbgi4"]
+[ext_resource type="Shader" uid="uid://dyvt6ggjpbilj" path="res://scenes/vignette.gdshader" id="6_85g3d"]
 [ext_resource type="Script" uid="uid://bp6ygev85ua8" path="res://components/score_manager.gd" id="6_tefeu"]
+[ext_resource type="Script" uid="uid://bts27hpbkj0u5" path="res://ui/vignette.gd" id="7_choun"]
+[ext_resource type="Resource" uid="uid://dk4nar2t6v8nq" path="res://components/score_config.tres" id="7_scorecfg"]
+[ext_resource type="Script" uid="uid://brbtaetx3ubaf" path="res://components/wave_manager.gd" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://d0yhjpir3ngkj" path="res://enemies/bat/bat.tscn" id="12_eb6dy"]
+[ext_resource type="AudioStream" uid="uid://bc43eufji0vq1" path="res://sounds/music/SongOfTheSummer2.wav" id="12_trceg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tipki"]
+shader = ExtResource("6_85g3d")
+shader_parameter/alpha = 0.1
+shader_parameter/inner_radius = 0.0
+shader_parameter/outer_radius = 1.0
 
 [node name="Main" type="Node2D" unique_id=1072304149]
 
@@ -14,11 +26,13 @@ script = ExtResource("1_grid")
 
 [node name="Player" parent="." unique_id=570212352 node_paths=PackedStringArray("sm") instance=ExtResource("2_player")]
 sm = NodePath("../ScoreManager")
+hand_radius = 18.0
 
 [node name="Zombie" parent="." unique_id=2132140099 instance=ExtResource("3_sugp2")]
 position = Vector2(249, 46)
 
 [node name="GameState" parent="." unique_id=2102336360 node_paths=PackedStringArray("sm") instance=ExtResource("4_tbgi4")]
+round_length = 128.0
 sm = NodePath("../ScoreManager")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=398792461]
@@ -30,7 +44,35 @@ zoom = Vector2(0.5, 0.5)
 gs = NodePath("../../GameState")
 sm = NodePath("../../ScoreManager")
 
+[node name="Vignette" type="ColorRect" parent="CanvasLayer" unique_id=92303246]
+material = SubResource("ShaderMaterial_tipki")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+script = ExtResource("7_choun")
+
 [node name="ScoreManager" type="Node" parent="." unique_id=2073533039 node_paths=PackedStringArray("p")]
 script = ExtResource("6_tefeu")
 p = NodePath("../Player")
-init_score = 100.0
+config = ExtResource("7_scorecfg")
+
+[node name="WaveManager" type="Node" parent="." unique_id=369197125 node_paths=PackedStringArray("camera")]
+script = ExtResource("8_tipki")
+zombie = ExtResource("3_sugp2")
+bat = ExtResource("12_eb6dy")
+camera = NodePath("../Camera2D")
+
+[node name="Timer" type="Timer" parent="WaveManager" unique_id=1448802647]
+autostart = true
+
+[node name="Bat" parent="." unique_id=1845500 instance=ExtResource("12_eb6dy")]
+position = Vector2(-237, -120)
+
+[node name="Theme" type="AudioStreamPlayer2D" parent="." unique_id=660397111]
+stream = ExtResource("12_trceg")
+autoplay = true
+
+[connection signal="timeout" from="WaveManager/Timer" to="WaveManager" method="_on_timer_timeout"]

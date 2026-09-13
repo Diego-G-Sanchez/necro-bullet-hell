@@ -6,6 +6,8 @@ extends Node2D
 
 #Hand State lives on the player
 @export var player: Player
+@onready var meleeHB: HitBox = %MeleeHitBox
+@export var parry_anim: AnimationPlayer
 
 signal dash_used
 
@@ -27,19 +29,82 @@ func _process(_delta: float) -> void:
 				sharp_dash()
 			player.Hands.Mage:
 				mage_fire_bomb()
-				
-func wolf_slash():
-	pass
-func wolf_parry():
-	pass
 	
+	if Input.is_action_just_pressed("go_wolf") and player.hand_state != player.Hands.Wolf:
+		switch_to_wolf()
+		
+	if Input.is_action_just_pressed("go_sharp") and player.hand_state != player.Hands.Shooter:
+		switch_to_sharp()
+
+	if Input.is_action_just_pressed("go_mage") and player.hand_state != player.Hands.Mage:
+		switch_to_mage()
+		
+func switch_to_wolf():
+	player.hand_state = player.Hands.Wolf
+	$HandL.texture = preload("res://assets/hand_l.png")
+	$HandR.texture = preload("res://assets/hand_r.png")
+	
+func switch_to_sharp():
+	player.hand_state = player.Hands.Shooter
+	$HandL.texture = preload("res://assets/hand_l_sharp.png")
+	$HandR.texture = preload("res://assets/hand_l_sharp.png")
+
+func switch_to_mage():
+	player.hand_state = player.Hands.Mage
+	$HandL.texture = preload("res://assets/hand_l_mage.png")
+	$HandR.texture = preload("res://assets/hand_l_mage.png")
+	
+func wolf_slash():
+	if player.wolf_claw_cd <= 0.0:
+		$AnimationPlayer.play("wolf_slash_2")
+		player.sm.change_score(-player.sm.config.slash_cost, global_position)
+		#Configure hitbox damage
+		meleeHB.set_damage(player.sm.config.slash_damage)
+		player.wolf_claw_cd = player.sm.config.wolf_claw_cd
+	
+func wolf_parry():
+	if player.wolf_parry_cd <= 0.0:
+		parry_anim.play("Parry")
+		player.sm.change_score(-player.sm.config.parry_cost, global_position)
+		player.wolf_parry_cd = player.sm.config.wolf_parry_cd
+
 func sharp_shoot():
-	pass
+	if player.sharp_shoot_cd <= 0.0:
+		shoot()
+		player.sm.change_score(-player.sm.config.shot_cost, global_position)
+		player.sharp_shoot_cd = player.sm.config.sharp_shoot_cd
+
 func sharp_dash():
-	#emit signal so parent can run dash physics on player
-	pass
+	if player.sharp_dash_cd <= 0.0:
+		#emit signal so parent can run dash physics on player
+		player.sm.change_score(-player.sm.config.dash_cost, global_position)
+		player.sharp_dash_cd = player.sm.config.sharp_dash_cd
 
 func mage_frost():
-	pass
+	if player.mage_frost_cd <= 0.0:
+		player.sm.change_score(-player.sm.config.frost_cost, global_position)
+		player.mage_frost_cd = player.sm.config.mage_frost_cd
+
 func mage_fire_bomb():
-	pass
+	if player.mage_fireball_cd <= 0.0:
+		player.sm.change_score(-player.sm.config.fire_ball_cost, global_position)
+		player.mage_fireball_cd = player.sm.config.mage_fireball_cd
+
+
+var bullet = preload("res://scenes/playerbullet.tscn")
+func shoot():
+	var b = bullet.instantiate() as PlayerBullet
+	b.global_position = global_position
+	b.initialize(player.sm.config)
+
+	b.dir = (get_global_mouse_position() - player.global_position).normalized()
+	get_tree().root.add_child(b)
+
+#
+#func _on_animation_player_animation_started(anim_name: StringName) -> void:
+	#if anim_name == "wolf_slash_2":
+		#$MeleeHitBox/CollisionShape2D.disabled = false
+#
+#func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	#if anim_name == "wolf_slash_2":
+		#$MeleeHitBox/CollisionShape2D.disabled = true

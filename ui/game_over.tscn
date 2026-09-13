@@ -64,3 +64,5 @@ size_flags_stretch_ratio = 0.25
 theme_override_styles/normal = SubResource("StyleBoxFlat_u0541")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oo8kp")
 text = "Play again"
+
+[connection signal="button_up" from="PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_button_button_up"]

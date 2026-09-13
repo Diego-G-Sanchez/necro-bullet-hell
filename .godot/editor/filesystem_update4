@@ -1,5 +1,13 @@
-res://scenes/player.tscn
+res://enemies/bat/bat.tscn
+res://scenes/vignette.gdshader
+res://scenes/parry.gdshader
+res://components/hurtbox/hurt_box.gd
+res://enemies/bat/bat.gd
+res://globals.gd
+res://components/score_config.gd
+res://enemies/bat/bat_bullet.gd
+res://enemies/zombie/zombie.gd
 res://scenes/hand_rig.gd
-res://scripts/player.gd
+res://scenes/playerbullet.gd
+res://components/score_config.tres
 res://scenes/main.tscn
-res://components/score_manager.gd

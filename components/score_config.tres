@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ScoreConfig" format=3 uid="uid://dk4nar2t6v8nq"]
+
+[ext_resource type="Script" uid="uid://csk8n2q4h7wpx" path="res://components/score_config.gd" id="1_cfg"]
+
+[resource]
+script = ExtResource("1_cfg")
+parry_cost = 5.0

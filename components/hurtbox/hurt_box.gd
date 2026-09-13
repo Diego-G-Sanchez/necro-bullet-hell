@@ -12,7 +12,30 @@ extends Area2D
 @export var health_component: HealthComponent
 
 
+
 func _on_area_entered(area: Area2D) -> void:
 	if oppositional_group in area.get_groups(): 
-		print("contact with the enemy")
-		health_component.take_damage(1)
+		if area is HitBox:
+			health_component.take_damage(area.damage)
+		else:
+			push_error("area is not hitbox")
+			
+			
+		#Spaghetti code 1000
+		#Parry clears bullets!
+		if area.is_in_group("EnemyBullet") && oppositional_group != "Player": 
+			var p = area.get_parent()
+			if "delete_bullet" in p: 
+				p.delete_bullet()
+		
+		#Bullets hit enemies
+		if area.is_in_group("PlayerBullet") && oppositional_group != "Enemy":
+			var p = area.get_parent()
+			if "delete_bullet" in p: 
+				p.delete_bullet()
+		
+		if oppositional_group == "Player":
+			#TODO: Implement knockback here
+			var p = get_parent()
+			#if is_instance_valid(p):
+				#p.apply_knockback(area.get_parent().get_parent().global_position, Globals.knockback_force)

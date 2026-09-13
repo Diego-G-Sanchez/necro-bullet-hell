@@ -2,36 +2,40 @@ extends Node
 class_name ScoreManager
 
 @export var p: Player
+@export var config: ScoreConfig
 
-@export var init_score: float
+@onready var popup = preload("res://ui/score_popup.tscn")
 
-@export_category("Score Costs")
-@export_group("Wolf")
-@export var drain_per_second:float = 1.0
-@export var slash_cost:float = 1.0
-@export var parry_cost:float = 1.0
-@export var wolf_swap_cost:float = 10.0
-
-@export_group("Sharp")
-@export var shot_cost:float = 1.0
-@export var shot_hit_reward_mult: float = 1.5
-@export var dash_cost:float = 1.0
-@export var sharp_swap_cost:float = 10.0
-
-@export_group("Mage")
-@export var frost_cost:float = 1.0
-@export var fire_ball_cost:float = 10.0
-@export var mage_swap_cost:float = 10.0
 var score := 0.0
 
 signal game_lost
 
 func _ready() -> void:
-	score = init_score
+	score = config.init_score
 
 func _process(delta: float) -> void:
 	if p.hand_state == p.Hands.Wolf:
-		score -= delta * drain_per_second
+		score -= delta * config.drain_per_second
 
 	if score <= 0:
 		game_lost.emit()
+	
+	var danger_threshold := config.init_score / config.percent_of_score_left_to_show_vignette
+	var vignette := $"../CanvasLayer/Vignette"
+	if score < danger_threshold:
+		vignette.set_vignette_alpha(get_inv_alpha(score, danger_threshold))
+	else:
+		vignette.set_vignette_alpha(0.0)
+
+func get_inv_alpha(value: float, max_val: float) -> float:
+	if max_val <= 0.0:
+		return 1.0
+	var clamped := clampf(value, 0.0, max_val)
+	return 1.0 - (clamped / max_val)
+
+func change_score(score_diff: float, gpos: Vector2):
+	score += score_diff
+	var p = popup.instantiate() as ScorePopup
+	p.global_position = gpos
+	get_tree().root.add_child(p)
+	p.set_score_value(score_diff)

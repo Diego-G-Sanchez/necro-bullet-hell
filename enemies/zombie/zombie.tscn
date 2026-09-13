@@ -19,6 +19,8 @@ collision_mask = 0
 script = ExtResource("1_20vm6")
 
 [node name="Health" parent="." unique_id=889141822 instance=ExtResource("1_hfuf0")]
+unique_name_in_owner = true
+max_health = 2
 
 [node name="HitBox" type="Area2D" parent="." unique_id=194930299 groups=["Enemy"]]
 position = Vector2(0, -6.000002)
@@ -46,5 +48,7 @@ texture = ExtResource("4_bwstf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=227911424]
 shape = SubResource("CircleShape2D_bwstf")
+
+[node name="Knockback" type="Node" parent="." unique_id=760548441]
 
 [connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]

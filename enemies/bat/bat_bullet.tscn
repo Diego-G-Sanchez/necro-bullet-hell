@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://blfcomc2vehh0"]
+
+[ext_resource type="Script" uid="uid://b4yt1r0xhe1ii" path="res://enemies/bat/bat_bullet.gd" id="1_g03ek"]
+[ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="1_hfgpd"]
+[ext_resource type="Texture2D" uid="uid://vvx21nu7jnb3" path="res://assets/batbullet.png" id="2_whlu8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
+radius = 7.5
+
+[node name="BatBullet" type="Node2D" unique_id=977428108 node_paths=PackedStringArray("hb")]
+script = ExtResource("1_g03ek")
+hb = NodePath("BulletHitBox")
+
+[node name="BulletHitBox" type="Area2D" parent="." unique_id=2137453431 groups=["Bullet", "Enemy", "EnemyBullet"]]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_hfgpd")
+
+[node name="Sprite2D" type="Sprite2D" parent="BulletHitBox" unique_id=1709986825]
+texture = ExtResource("2_whlu8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletHitBox" unique_id=1424064433]
+shape = SubResource("CircleShape2D_hrxsu")
+
+[connection signal="area_entered" from="BulletHitBox" to="." method="_on_bullet_area_entered"]

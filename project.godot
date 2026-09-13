@@ -30,6 +30,12 @@ window/stretch/mode="viewport"
 
 project/assembly_name="bullet-hell"
 
+[global_group]
+
+Enemy=""
+EnemyBullet=""
+Player=""
+
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true
