@@ -27,6 +27,7 @@ func _on_area_entered(area: Area2D) -> void:
 			var p = area.get_parent()
 			if "delete_bullet" in p: 
 				p.delete_bullet()
+				#Get scoremanger here then use 
 		
 		#Bullets hit enemies
 		if area.is_in_group("PlayerBullet") && oppositional_group != "Enemy":
