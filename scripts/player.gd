@@ -29,11 +29,7 @@ class_name Player
 @export var aim_speed := 22.0
 @export var body_faces_mouse := true
 
-@export_group("Animation")
-## Bob playback speed while walking. The bob is stopped entirely while idle.
-@export var walk_anim_speed := 1.6
-
-@onready var body: AnimatedSprite2D = $Body
+@onready var body: Sprite2D = $Body
 @onready var hand_rig: Node2D = $HandRig
 @onready var hand_l: Sprite2D = $HandRig/HandL
 @onready var hand_r: Sprite2D = $HandRig/HandR
@@ -65,8 +61,6 @@ var mage_fireball_cd: float = 0.0
 
 	
 func _ready() -> void:
-	# Starts stopped; the bob only runs while a movement key is held.
-	body.stop()
 	hand_l.position = Vector2(0, -hand_separation)
 	hand_r.position = Vector2(0, hand_separation)
 	_hand_offset = hand_radius
@@ -98,14 +92,6 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
 	move_and_slide()
-
-
-	if input_dir != Vector2.ZERO:
-		body.speed_scale = walk_anim_speed
-		if not body.is_playing():
-			body.play("bob")
-	elif body.is_playing():
-		body.stop() # rewinds to frame 0, the neutral standing pose
 
 
 func _process(delta: float) -> void:
