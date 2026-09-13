@@ -10,8 +10,8 @@
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="7_fjrip"]
 [ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://b7ucvftwk60fe" path="res://scenes/parry.gd" id="9_y4r1p"]
+[ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="10_arena"]
 [ext_resource type="Script" uid="uid://byxkna3h1crpg" path="res://scenes/dash.gd" id="10_dash"]
-[ext_resource type="PackedScene" path="res://components/arena_bounds/arena_bounds.tscn" id="10_arena"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
 atlas = ExtResource("2_necro")
