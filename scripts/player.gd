@@ -30,10 +30,15 @@ class_name Player
 @export var aim_speed := 22.0
 @export var body_faces_mouse := true
 
-@onready var body: Sprite2D = $Body
+@export_group("Animation")
+## Bob playback speed while walking. The bob is stopped entirely while idle.
+@export var walk_anim_speed := 1.6
+
+@onready var body: AnimatedSprite2D = $Body
 @onready var hand_rig: Node2D = $HandRig
 @onready var hand_l: Sprite2D = $HandRig/HandL
 @onready var hand_r: Sprite2D = $HandRig/HandR
+@onready var dash: Dash = $Dash
 
 
 var aim_point := Vector2.INF
@@ -61,6 +66,8 @@ var mage_fireball_cd: float = 0.0
 
 
 func _ready() -> void:
+	# Starts stopped; the bob only runs while a movement key is held.
+	body.stop()
 	hand_l.position = Vector2(0, -hand_separation)
 	hand_r.position = Vector2(0, hand_separation)
 	_hand_offset = hand_radius
@@ -84,6 +91,10 @@ func get_aim_point() -> Vector2:
 
 
 func _physics_process(delta: float) -> void:
+	#The Dash node moves the player while a dash is active.
+	if dash.is_dashing():
+		return
+
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
 	if input_dir != Vector2.ZERO:
@@ -93,6 +104,13 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	arena_bounds.apply(delta)
+
+	if input_dir != Vector2.ZERO:
+		body.speed_scale = walk_anim_speed
+		if not body.is_playing():
+			body.play("bob")
+	elif body.is_playing():
+		body.stop() # rewinds to frame 0, the neutral standing pose
 
 
 func _process(delta: float) -> void:

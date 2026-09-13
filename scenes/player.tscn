@@ -10,7 +10,72 @@
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="7_fjrip"]
 [ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://b7ucvftwk60fe" path="res://scenes/parry.gd" id="9_y4r1p"]
-[ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="10_arena"]
+[ext_resource type="Script" uid="uid://byxkna3h1crpg" path="res://scenes/dash.gd" id="10_dash"]
+[ext_resource type="PackedScene" path="res://components/arena_bounds/arena_bounds.tscn" id="10_arena"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
+atlas = ExtResource("2_necro")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
+atlas = ExtResource("2_necro")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
+atlas = ExtResource("2_necro")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3"]
+atlas = ExtResource("2_necro")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4"]
+atlas = ExtResource("2_necro")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5"]
+atlas = ExtResource("2_necro")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6"]
+atlas = ExtResource("2_necro")
+region = Rect2(144, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7"]
+atlas = ExtResource("2_necro")
+region = Rect2(168, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_body"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7")
+}],
+"loop": 1,
+"name": &"bob",
+"speed": 10.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 16.0
@@ -353,9 +418,10 @@ health_component = NodePath("Health")
 arena_bounds = NodePath("ArenaBounds")
 hand_radius = 26.0
 
-[node name="Body" type="Sprite2D" parent="." unique_id=1086287996]
+[node name="Body" type="AnimatedSprite2D" parent="." unique_id=1086287996]
 scale = Vector2(4, 4)
-texture = ExtResource("2_necro")
+sprite_frames = SubResource("SpriteFrames_body")
+animation = &"bob"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1105357055]
 position = Vector2(0, 16)
@@ -417,11 +483,12 @@ shape = SubResource("CircleShape2D_hrxsu")
 libraries/ = SubResource("AnimationLibrary_smehm")
 autoplay = &"walk"
 
-[node name="Parry" type="Area2D" parent="." unique_id=1475200779]
+[node name="Parry" type="Area2D" parent="." unique_id=1475200779 node_paths=PackedStringArray("player")]
 position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("9_y4r1p")
+player = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Parry" unique_id=739843412]
 shape = SubResource("CircleShape2D_arbro")
@@ -435,6 +502,20 @@ self_modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("9_ur7pv")
+
+[node name="Dash" type="Area2D" parent="." unique_id=768557997 node_paths=PackedStringArray("player", "hurt_box", "body")]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+monitorable = false
+script = ExtResource("10_dash")
+player = NodePath("..")
+hurt_box = NodePath("../HurtBox")
+body = NodePath("../Body")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dash" unique_id=299259019]
+position = Vector2(0, 16)
+shape = SubResource("CircleShape2D_hrxsu")
 
 [connection signal="animation_finished" from="HandRig/AnimationPlayer" to="HandRig" method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="HandRig/AnimationPlayer" to="HandRig" method="_on_animation_player_animation_started"]
