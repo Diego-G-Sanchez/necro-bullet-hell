@@ -10,6 +10,7 @@ func start_explosion():
 func initialize(config: ScoreConfig):
 	damage = config.mage_explosion_damage
 	hb.set_damage(damage)
+	Sfx.play(preload("res://sounds/sfx/fire_explosion.wav"))
 
 func _ready() -> void:
 	start_explosion()

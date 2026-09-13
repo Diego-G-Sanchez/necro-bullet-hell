@@ -5,6 +5,7 @@ class_name Player
 @export var health_component: HealthComponent
 @export var sm: ScoreManager
 @export var arena_bounds: ArenaBounds
+@export var walk_sound: AudioStreamPlayer2D
 
 # Top-down movement + a hand rig that aims at the cursor.
 # HandRig lives in a ring around the player (inner..outer radius), faces the
@@ -80,6 +81,7 @@ func take_score_damage(dmg_taken):
 	if sm.score > 0:
 		sm.change_score(-dmg_taken, global_position)
 		flash_red()
+		Sfx.play(preload("res://sounds/sfx/hitHurt.wav"))
 
 func flash_red():
 	var tween = create_tween()
@@ -99,9 +101,15 @@ func _physics_process(delta: float) -> void:
 
 	if input_dir != Vector2.ZERO:
 		velocity = velocity.move_toward(input_dir * max_speed, acceleration * delta)
+		if walk_sound.playing == false:
+			walk_sound.pitch_scale = randf_range(.13,.16)
+			walk_sound.playing = true
+		if !$AnimationPlayer.is_playing(): 
+			$AnimationPlayer.play("walk")
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
-
+		if $AnimationPlayer.is_playing(): 
+			$AnimationPlayer.stop()
 	move_and_slide()
 	arena_bounds.apply(delta)
 

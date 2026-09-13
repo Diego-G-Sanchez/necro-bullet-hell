@@ -10,8 +10,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_deej2")
-green = Color(0.1924999, 0.47623432, 3.85046e-07, 1)
-red = Color(0.31710878, 0.012775264, 0.04807034, 1)
+green = Color(0.18039216, 0.78039217, 0.20392157, 1)
+red = Color(0.78287154, 0.10773579, 0, 1)
 
 [node name="Label" type="Label" parent="." unique_id=1643441331]
 unique_name_in_owner = true
@@ -20,3 +20,5 @@ offset_right = 40.0
 offset_bottom = 20.0
 scale = Vector2(2, 2)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "loremipsum"

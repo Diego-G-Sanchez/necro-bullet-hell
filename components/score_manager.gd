@@ -9,6 +9,7 @@ class_name ScoreManager
 var score := 0.0
 
 signal game_lost
+signal score_changed
 
 func _ready() -> void:
 	score = config.init_score
@@ -39,3 +40,4 @@ func change_score(score_diff: float, gpos: Vector2):
 	p.global_position = gpos
 	get_tree().root.add_child(p)
 	p.set_score_value(score_diff)
+	score_changed.emit()

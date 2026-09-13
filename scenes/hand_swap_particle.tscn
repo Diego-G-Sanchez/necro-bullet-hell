@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b3rohjvmpk50m"]
+
+[ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="1_7jut1"]
+[ext_resource type="Script" uid="uid://budd32y8p7iup" path="res://scenes/hand_swap_particle.gd" id="2_0w24k"]
+
+[sub_resource type="Curve" id="Curve_jej6c"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9913194, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jej6c"]
+curve = SubResource("Curve_jej6c")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hrxsu"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 45.25
+initial_velocity_max = 240.33
+gravity = Vector3(0, 98, 0)
+scale_curve = SubResource("CurveTexture_jej6c")
+color = Color(0.45490196, 0.101960786, 0.21176471, 0.6862745)
+
+[node name="HandSwapParticle" type="GPUParticles2D" unique_id=1842772507]
+rotation = 1.5803216
+emitting = false
+amount = 28
+texture = ExtResource("1_7jut1")
+lifetime = 0.98
+one_shot = true
+speed_scale = 4.05
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_hrxsu")
+script = ExtResource("2_0w24k")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

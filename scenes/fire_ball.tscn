@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dk3ou3gm7trc7"]
 
-[ext_resource type="Script" path="res://scenes/playerbullet_fireball.gd" id="1_7fy7u"]
+[ext_resource type="Script" uid="uid://bl2v400uqj8u3" path="res://scenes/playerbullet_fireball.gd" id="1_7fy7u"]
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="2_7jfqc"]
 [ext_resource type="PackedScene" uid="uid://dtvtcpnuts0go" path="res://scenes/fireball_explosion.tscn" id="2_ggq3o"]
 [ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="3_circle"]

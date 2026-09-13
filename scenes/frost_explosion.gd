@@ -6,7 +6,7 @@ var damage:int = 0
 
 func start_explosion():
 	$AnimationPlayer.play("boom")
-
+	Sfx.play(preload("res://sounds/sfx/frost_explosion.wav"))
 	
 func initialize(config: ScoreConfig):
 	damage = 0#config.mage_explosion_damage

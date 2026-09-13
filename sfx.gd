@@ -10,6 +10,7 @@ func play(stream: AudioStream, sound_position: Vector2 = Vector2.ZERO, volume_db
 	player.stream = stream
 	player.bus = "SFX"
 	player.volume_db = volume_db
+	player.pitch_scale = randf_range(0.8, 1.3)
 	player.position = sound_position
 	add_child(player)
 	player.finished.connect(player.queue_free)

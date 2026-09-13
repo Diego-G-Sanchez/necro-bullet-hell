@@ -8,10 +8,12 @@
 [ext_resource type="Script" uid="uid://dciw2d4b2myip" path="res://components/hurtbox/hurt_box.gd" id="5_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://cq8hn0s5svofn" path="res://components/health/health.tscn" id="6_fjrip"]
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="7_fjrip"]
+[ext_resource type="Texture2D" uid="uid://dtgcdja021h2y" path="res://assets/slash.png" id="7_jej6c"]
 [ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://b7ucvftwk60fe" path="res://scenes/parry.gd" id="9_y4r1p"]
 [ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="10_arena"]
 [ext_resource type="Script" uid="uid://byxkna3h1crpg" path="res://scenes/dash.gd" id="10_dash"]
+[ext_resource type="AudioStream" uid="uid://bluojk5edengb" path="res://sounds/sfx/walk.wav" id="14_f1ej7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
 atlas = ExtResource("2_necro")
@@ -130,6 +132,30 @@ tracks/3/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SlashSprite:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SlashSprite:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_ur7pv"]
 resource_name = "wolf_slash"
@@ -209,6 +235,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(0.5, 1, 1, 0.5, -2, 1),
 "update": 0,
 "values": [0.0, 0.6, -0.2, -1.0, -1.15, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SlashSprite:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(5.345, 2.2), Vector2(1.895, 0.7)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SlashSprite:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.16666667, 0.23333333, 0.36666667),
+"transitions": PackedFloat32Array(1, 2.7320802, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.15686275), Color(0.45490196, 0.101960786, 0.21176471, 1), Color(1, 1, 1, 0.021471083), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y4r1p"]
@@ -411,11 +461,12 @@ _data = {
 &"RESET": SubResource("Animation_jej6c")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=1221017178 node_paths=PackedStringArray("health_component", "arena_bounds") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1221017178 node_paths=PackedStringArray("health_component", "arena_bounds", "walk_sound") groups=["Player"]]
 motion_mode = 1
 script = ExtResource("1_player")
 health_component = NodePath("Health")
 arena_bounds = NodePath("ArenaBounds")
+walk_sound = NodePath("Walk")
 hand_radius = 26.0
 
 [node name="Body" type="AnimatedSprite2D" parent="." unique_id=1086287996]
@@ -461,6 +512,12 @@ position = Vector2(0, 16)
 shape = SubResource("CircleShape2D_smehm")
 disabled = true
 
+[node name="SlashSprite" type="Sprite2D" parent="HandRig" unique_id=2104490534]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(51.000004, -4.9999995)
+rotation = 1.5803216
+texture = ExtResource("7_jej6c")
+
 [node name="Health" parent="." unique_id=889141822 instance=ExtResource("6_fjrip")]
 use_health = false
 
@@ -481,7 +538,6 @@ shape = SubResource("CircleShape2D_hrxsu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=470739780]
 libraries/ = SubResource("AnimationLibrary_smehm")
-autoplay = &"walk"
 
 [node name="Parry" type="Area2D" parent="." unique_id=1475200779 node_paths=PackedStringArray("player")]
 position = Vector2(0, 1)
@@ -516,6 +572,12 @@ body = NodePath("../Body")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dash" unique_id=299259019]
 position = Vector2(0, 16)
 shape = SubResource("CircleShape2D_hrxsu")
+
+[node name="Walk" type="AudioStreamPlayer2D" parent="." unique_id=744572509]
+stream = ExtResource("14_f1ej7")
+volume_db = -17.227
+pitch_scale = 0.65
+bus = &"SFX"
 
 [connection signal="animation_finished" from="HandRig/AnimationPlayer" to="HandRig" method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="HandRig/AnimationPlayer" to="HandRig" method="_on_animation_player_animation_started"]

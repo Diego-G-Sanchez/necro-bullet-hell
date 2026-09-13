@@ -21,6 +21,7 @@ func initialize(config: ScoreConfig):
 	c = config
 	damage = config.shot_damage
 	speed = config.shot_speed
+	Sfx.play(preload("res://sounds/sfx/shoot_fire.wav"))
 	hb.set_damage(damage)
 
 

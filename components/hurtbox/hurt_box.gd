@@ -39,6 +39,7 @@ func _on_area_entered(area: Area2D) -> void:
 			var frost_slow_target := find_parent_with_method(self, "apply_frost")
 			if frost_slow_target:
 				frost_slow_target.apply_frost()
+				return
 		
 		var knockback_target := find_parent_with_method(self, "apply_knockback")
 		if knockback_target:

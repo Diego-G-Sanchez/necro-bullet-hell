@@ -6,6 +6,7 @@
 script = ExtResource("1_cfg")
 percent_of_score_left_to_show_vignette = 2.8
 parry_cost = 5.0
+wolf_claw_cd = 0.44
 mage_frost_cd = 0.2
 mage_explosion_damage = 20
 mage_fireball_cd = 4.0

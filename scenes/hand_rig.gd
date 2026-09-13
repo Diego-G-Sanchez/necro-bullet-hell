@@ -22,7 +22,7 @@ const WOLF_PARRY_SFX := preload("res://sounds/sfx/parry2.wav")
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("action1"):
+	if Input.is_action_pressed("action1"):
 		match player.hand_state:
 			player.Hands.Wolf:
 				wolf_slash()
@@ -31,7 +31,7 @@ func _process(_delta: float) -> void:
 			player.Hands.Mage:
 				mage_frost()
 
-	if Input.is_action_just_pressed("action2"):
+	if Input.is_action_pressed("action2"):
 		match player.hand_state:
 			player.Hands.Wolf:
 				wolf_parry()
@@ -48,18 +48,33 @@ func _process(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("go_mage") and player.hand_state != player.Hands.Mage:
 		switch_to_mage()
-		
+	
+	
+var hswp := preload("res://scenes/hand_swap_particle.tscn")
+var sacrifice_sound = preload("res://sounds/sfx/sacrifice.wav")
+func play_weapon_switch():
+	var p = hswp.instantiate()
+	p.global_position = global_position
+	get_tree().root.add_child(p)
+	Sfx.play(sacrifice_sound)
+	
 func switch_to_wolf():
+	play_weapon_switch()
+	player.sm.change_score(-player.sm.config.wolf_swap_cost, global_position)
 	player.hand_state = player.Hands.Wolf
 	$HandL.texture = preload("res://assets/hand_l_werewolf.png")
 	$HandR.texture = preload("res://assets/hand_r_werewolf.png")
 	
 func switch_to_sharp():
+	play_weapon_switch()
+	player.sm.change_score(-player.sm.config.sharp_swap_cost, global_position)
 	player.hand_state = player.Hands.Shooter
 	$HandL.texture = preload("res://assets/hand_l_sharp.png")
 	$HandR.texture = preload("res://assets/hand_l_sharp.png")
 
 func switch_to_mage():
+	play_weapon_switch()
+	player.sm.change_score(-player.sm.config.mage_swap_cost, global_position)
 	player.hand_state = player.Hands.Mage
 	$HandL.texture = preload("res://assets/hand_l_mage.png")
 	$HandR.texture = preload("res://assets/hand_l_mage.png")

@@ -1,6 +1,6 @@
 extends Node
 class_name FrostEffect
-@export var sprite:Sprite2D
+@export var sprite:Node2D
 
 var init_sprite_color: Color
 var sf = 0
