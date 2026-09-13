@@ -4,4 +4,7 @@
 
 [resource]
 script = ExtResource("1_cfg")
+percent_of_score_left_to_show_vignette = 2.8
 parry_cost = 5.0
+zombie_knockback_force = 250.0
+bat_knockback_force = 250.0

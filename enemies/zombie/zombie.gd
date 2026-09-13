@@ -5,6 +5,7 @@ var speed: float
 @export var acceleration:float = 100.0
 @onready var hc: HealthComponent = %Health
 @onready var sprite: AnimatedSprite2D = $Sprite2D
+@export var arena_bounds: ArenaBounds
 var config: ScoreConfig
 var dir:= Vector2.ZERO
 var knockback:= Vector2.ZERO
@@ -32,9 +33,9 @@ func flash_red(dmg_taken:int):
 	tween.tween_property(self, "modulate", Color.RED, 0.1)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.1)
 	
-func apply_knockback(from_position: Vector2, force: float) -> void:
-	var dir = (global_position - from_position).normalized()
-	knockback = dir * force
+func apply_knockback(from_position: Vector2) -> void:
+	var knock_dir := (global_position - from_position).normalized()
+	knockback = knock_dir * config.zombie_knockback_force
 
 func _process(delta: float) -> void:
 	#reduce knockback value over time
@@ -55,3 +56,4 @@ func _process(delta: float) -> void:
 	elif sprite.is_playing():
 		sprite.stop() # rewinds to frame 0, the neutral standing pose
 	
+	arena_bounds.apply(delta)

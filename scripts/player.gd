@@ -4,6 +4,7 @@ class_name Player
 @export_group("Components")
 @export var health_component: HealthComponent
 @export var sm: ScoreManager
+@export var arena_bounds: ArenaBounds
 
 # Top-down movement + a hand rig that aims at the cursor.
 # HandRig lives in a ring around the player (inner..outer radius), faces the
@@ -64,7 +65,6 @@ var mage_frost_cd: float = 0.0
 var mage_fireball_cd: float = 0.0
 
 
-	
 func _ready() -> void:
 	# Starts stopped; the bob only runs while a movement key is held.
 	body.stop()
@@ -103,6 +103,7 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
 	move_and_slide()
+	arena_bounds.apply(delta)
 
 	if input_dir != Vector2.ZERO:
 		body.speed_scale = walk_anim_speed

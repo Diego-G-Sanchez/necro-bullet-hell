@@ -5,6 +5,12 @@
 [ext_resource type="Script" uid="uid://dciw2d4b2myip" path="res://components/hurtbox/hurt_box.gd" id="2_bwstf"]
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="3_20vm6"]
 [ext_resource type="Texture2D" uid="uid://c731gyge3e2ay" path="res://assets/zombie.png" id="5_20vm6"]
+[ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="6_arena"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_smehm"]
+radius = 47.15413
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
 atlas = ExtResource("5_20vm6")
@@ -70,6 +76,8 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_bwstf"]
+
 [sub_resource type="Animation" id="Animation_smehm"]
 length = 0.001
 tracks/0/type = "value"
@@ -111,7 +119,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(3.0975, 3.0975), Vector2(3.5, 3.5), Vector2(3.1025483, 3.1025483), Vector2(3.1008171, 3.1008171), Vector2(3.5, 3.5)]
+"values": [Vector2(3.0975, 3.0975), Vector2(3.5, 3.5), Vector2(3.1025484, 3.1025484), Vector2(3.1008172, 3.1008172), Vector2(3.5, 3.5)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -132,21 +140,17 @@ _data = {
 &"walk": SubResource("Animation_fjrip")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_smehm"]
-radius = 47.15413
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_bwstf"]
-
-[node name="Zombie" type="CharacterBody2D" unique_id=2132140099 groups=["Enemy"]]
+[node name="Zombie" type="CharacterBody2D" unique_id=2132140099 node_paths=PackedStringArray("arena_bounds") groups=["Enemy"]]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_20vm6")
+arena_bounds = NodePath("ArenaBounds")
 
 [node name="Health" parent="." unique_id=889141822 instance=ExtResource("1_hfuf0")]
 unique_name_in_owner = true
 max_health = 2
+
+[node name="ArenaBounds" parent="." unique_id=1511265881 instance=ExtResource("6_arena")]
 
 [node name="HitBox" type="Area2D" parent="." unique_id=194930299 groups=["Enemy"]]
 position = Vector2(0, -6.000002)
@@ -177,7 +181,7 @@ animation = &"bob"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=227911424]
 shape = SubResource("CircleShape2D_bwstf")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1837596762]
 libraries/ = SubResource("AnimationLibrary_smehm")
 autoplay = &"walk"
 

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://4u3bg2cj51nf"]
+
+[ext_resource type="Script" uid="uid://ds5u7k22o4u1a" path="res://components/arena_bounds/arena_bounds.gd" id="1_bounds"]
+
+[node name="ArenaBounds" type="Node" unique_id=1697078415]
+script = ExtResource("1_bounds")

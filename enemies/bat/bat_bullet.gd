@@ -18,3 +18,7 @@ func delete_bullet():
 
 func _process(delta: float) -> void:
 	global_position += dir * delta * speed
+
+
+func _on_lifetime_timeout() -> void:
+	queue_free()

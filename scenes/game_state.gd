@@ -4,11 +4,12 @@ class_name GameState
 @export var round_length: float = 100
 @onready var round_timer: Timer = $RoundTimer
 
-@export var sm: ScoreManager 
+@export var sm: ScoreManager
 
 func _ready() -> void:
 	round_timer.start(round_length)
-	sm.game_lost.connect(game_over) #Call the game over function
+	sm.game_lost.connect(game_over) # Call the game over function
+	Globals.music.play()
 	
 func _on_round_timer_timeout() -> void:
 	game_over()

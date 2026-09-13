@@ -8,6 +8,7 @@ func play(stream: AudioStream, sound_position: Vector2 = Vector2.ZERO, volume_db
 		return
 	var player := AudioStreamPlayer2D.new()
 	player.stream = stream
+	player.bus = "SFX"
 	player.volume_db = volume_db
 	player.position = sound_position
 	add_child(player)

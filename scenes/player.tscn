@@ -8,9 +8,10 @@
 [ext_resource type="Script" uid="uid://dciw2d4b2myip" path="res://components/hurtbox/hurt_box.gd" id="5_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://cq8hn0s5svofn" path="res://components/health/health.tscn" id="6_fjrip"]
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="7_fjrip"]
-[ext_resource type="Texture2D" uid="uid://xe62rnbx6c6k" path="res://assets/circle1.png" id="9_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://b7ucvftwk60fe" path="res://scenes/parry.gd" id="9_y4r1p"]
 [ext_resource type="Script" uid="uid://byxkna3h1crpg" path="res://scenes/dash.gd" id="10_dash"]
+[ext_resource type="PackedScene" path="res://components/arena_bounds/arena_bounds.tscn" id="10_arena"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
 atlas = ExtResource("2_necro")
@@ -297,7 +298,7 @@ tracks/0/path = NodePath("CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666667),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -309,10 +310,10 @@ tracks/1/path = NodePath("CollisionShape2D:shape:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.13333334),
+"times": PackedFloat32Array(0, 0.099999994, 0.16666667),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [10.0, 100.0, 118.07]
+"values": [10.0, 120.0, 140.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -321,8 +322,8 @@ tracks/2/path = NodePath("Sprite2D:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.16580932),
-"transitions": PackedFloat32Array(1, 4, 4),
+"times": PackedFloat32Array(0, 0.099999994, 0.16666667),
+"transitions": PackedFloat32Array(1, 4, 1),
 "update": 0,
 "values": [Vector2(0.6, 0.6), Vector2(6, 6), Vector2(6, 6)]
 }
@@ -336,7 +337,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0.1, 0.16666667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.18039216), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0.34901962), Color(1, 1, 1, 0)]
 }
 tracks/4/type = "method"
 tracks/4/imported = false
@@ -345,7 +346,7 @@ tracks/4/path = NodePath(".")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.13333334),
+"times": PackedFloat32Array(0.16666667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -410,10 +411,11 @@ _data = {
 &"RESET": SubResource("Animation_jej6c")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=1221017178 node_paths=PackedStringArray("health_component") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1221017178 node_paths=PackedStringArray("health_component", "arena_bounds") groups=["Player"]]
 motion_mode = 1
 script = ExtResource("1_player")
 health_component = NodePath("Health")
+arena_bounds = NodePath("ArenaBounds")
 hand_radius = 26.0
 
 [node name="Body" type="AnimatedSprite2D" parent="." unique_id=1086287996]
@@ -461,6 +463,10 @@ disabled = true
 
 [node name="Health" parent="." unique_id=889141822 instance=ExtResource("6_fjrip")]
 use_health = false
+
+[node name="ArenaBounds" parent="." unique_id=1402115066 instance=ExtResource("10_arena")]
+locked_in = true
+snap = true
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1099882132 node_paths=PackedStringArray("health_component")]
 collision_layer = 0

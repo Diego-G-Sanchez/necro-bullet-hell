@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b4yt1r0xhe1ii" path="res://enemies/bat/bat_bullet.gd" id="1_g03ek"]
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="1_hfgpd"]
-[ext_resource type="Texture2D" uid="uid://vvx21nu7jnb3" path="res://assets/batbullet.png" id="2_whlu8"]
+[ext_resource type="Texture2D" uid="uid://umqco3nnchf3" path="res://assets/batbullet.png" id="2_whlu8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
 radius = 7.5
@@ -23,4 +23,10 @@ texture = ExtResource("2_whlu8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BulletHitBox" unique_id=1424064433]
 shape = SubResource("CircleShape2D_hrxsu")
 
+[node name="Lifetime" type="Timer" parent="." unique_id=1168227075]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
 [connection signal="area_entered" from="BulletHitBox" to="." method="_on_bullet_area_entered"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]
