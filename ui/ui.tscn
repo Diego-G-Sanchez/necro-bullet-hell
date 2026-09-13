@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="4_tf0e0"]
 [ext_resource type="Texture2D" uid="uid://umqco3nnchf3" path="res://assets/batbullet.png" id="5_obcwv"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tf0e0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cooldowns_panel"]
+
 [node name="UI" type="Control" unique_id=460964894]
 layout_mode = 3
 anchors_preset = 15
@@ -15,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_f5cxw")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2068397554]
+[node name="GameState" type="PanelContainer" parent="." unique_id=2068397554]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 5
@@ -27,20 +31,20 @@ offset_bottom = 40.0
 grow_horizontal = 2
 theme_override_styles/panel = ExtResource("1_u7n8c")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=767096585]
+[node name="MarginContainer" type="MarginContainer" parent="GameState" unique_id=767096585]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=896180465]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameState/MarginContainer" unique_id=896180465]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1738132654]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameState/MarginContainer/HBoxContainer" unique_id=1738132654]
 layout_mode = 2
 alignment = 1
 
-[node name="BloodIcon" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer/HBoxContainer" unique_id=1075009491]
+[node name="BloodIcon" type="TextureRect" parent="GameState/MarginContainer/HBoxContainer/HBoxContainer" unique_id=1075009491]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(7.14, 8.795)
 layout_mode = 2
@@ -51,7 +55,7 @@ offset_transform_enabled = true
 offset_transform_position = Vector2(1.56, 0)
 texture = ExtResource("3_wl5ax")
 
-[node name="Score" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer/HBoxContainer" unique_id=201326395]
+[node name="Score" type="Label" parent="GameState/MarginContainer/HBoxContainer/HBoxContainer" unique_id=201326395]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -62,7 +66,7 @@ text = "Score"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Time" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=135987641]
+[node name="Time" type="Label" parent="GameState/MarginContainer/HBoxContainer" unique_id=135987641]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -73,98 +77,117 @@ text = "Time"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelContainer2" type="PanelContainer" parent="." unique_id=182087148]
-custom_minimum_size = Vector2(100, 100)
+[node name="Cooldowns" type="PanelContainer" parent="." unique_id=182087148]
+visible = false
+custom_minimum_size = Vector2(110.855, 100)
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 40.0
+offset_left = -55.427505
+offset_top = -100.0
+offset_right = 55.427505
+grow_horizontal = 2
 grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tf0e0")
 
-[node name="Panel" type="Panel" parent="PanelContainer2" unique_id=1983990988]
+[node name="Panel" type="Panel" parent="Cooldowns" unique_id=1983990988]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_cooldowns_panel")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2/Panel" unique_id=66863014]
+[node name="MarginContainer" type="MarginContainer" parent="Cooldowns/Panel" unique_id=66863014]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 11
+theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/Panel/MarginContainer" unique_id=23705550]
+[node name="VBoxContainer" type="HBoxContainer" parent="Cooldowns/Panel/MarginContainer" unique_id=658731993]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer" unique_id=2052528971]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1725526678]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Cooldowns/Panel/MarginContainer/VBoxContainer" unique_id=1725526678]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=149696977]
+[node name="TextureRect" type="TextureRect" parent="Cooldowns/Panel/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=149696977]
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("4_tf0e0")
+stretch_mode = 3
 
-[node name="Parry" type="ProgressBar" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=673073799]
-custom_minimum_size = Vector2(0, 40)
+[node name="Parry" type="ProgressBar" parent="Cooldowns/Panel/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=673073799]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 25)
 layout_mode = 2
 size_flags_horizontal = 3
-fill_mode = 1
-show_percentage = false
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=957573374]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="TextureRect" type="TextureRect" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2" unique_id=443495063]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("5_obcwv")
-
-[node name="SharpShoot" type="ProgressBar" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2" unique_id=1967659851]
-custom_minimum_size = Vector2(0, 33.95)
-layout_mode = 2
-size_flags_horizontal = 3
+size_flags_vertical = 1
 fill_mode = 3
 show_percentage = false
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer" unique_id=250649826]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1300056927]
+[node name="HBoxContainer5" type="HBoxContainer" parent="Cooldowns/Panel/MarginContainer/VBoxContainer" unique_id=1300056927]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=1032737664]
+[node name="TextureRect" type="TextureRect" parent="Cooldowns/Panel/MarginContainer/VBoxContainer/HBoxContainer5" unique_id=1032737664]
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("4_tf0e0")
+stretch_mode = 3
 
-[node name="Firebomb" type="ProgressBar" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer" unique_id=1894123713]
-custom_minimum_size = Vector2(0, 40)
+[node name="Firebomb" type="ProgressBar" parent="Cooldowns/Panel/MarginContainer/VBoxContainer/HBoxContainer5" unique_id=1894123713]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 45)
 layout_mode = 2
 size_flags_horizontal = 3
-fill_mode = 1
+size_flags_vertical = 1
+fill_mode = 3
 show_percentage = false
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=108999751]
+[node name="HBoxContainer4" type="HBoxContainer" parent="Cooldowns/Panel/MarginContainer/VBoxContainer" unique_id=957573374]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2" unique_id=1058527898]
+[node name="TextureRect" type="TextureRect" parent="Cooldowns/Panel/MarginContainer/VBoxContainer/HBoxContainer4" unique_id=443495063]
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("5_obcwv")
+stretch_mode = 3
 
-[node name="SharpDash" type="ProgressBar" parent="PanelContainer2/Panel/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2" unique_id=83661590]
-custom_minimum_size = Vector2(0, 33.95)
+[node name="SharpShoot" type="ProgressBar" parent="Cooldowns/Panel/MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1967659851]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 45)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
+fill_mode = 3
+show_percentage = false
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Cooldowns/Panel/MarginContainer/VBoxContainer" unique_id=108999751]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Cooldowns/Panel/MarginContainer/VBoxContainer/HBoxContainer6" unique_id=1058527898]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_obcwv")
+stretch_mode = 3
+
+[node name="SharpDash" type="ProgressBar" parent="Cooldowns/Panel/MarginContainer/VBoxContainer/HBoxContainer6" unique_id=83661590]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 fill_mode = 3
 show_percentage = false
