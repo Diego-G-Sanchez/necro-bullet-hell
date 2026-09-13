@@ -11,6 +11,8 @@ extends Node2D
 
 signal dash_used
 
+const WOLF_SLASH_SFX := preload("res://sounds/sfx/wolfattack.wav")
+
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("action1"):
 		match player.hand_state:
@@ -41,8 +43,8 @@ func _process(_delta: float) -> void:
 		
 func switch_to_wolf():
 	player.hand_state = player.Hands.Wolf
-	$HandL.texture = preload("res://assets/hand_l.png")
-	$HandR.texture = preload("res://assets/hand_r.png")
+	$HandL.texture = preload("res://assets/hand_l_werewolf.png")
+	$HandR.texture = preload("res://assets/hand_r_werewolf.png")
 	
 func switch_to_sharp():
 	player.hand_state = player.Hands.Shooter
@@ -57,6 +59,7 @@ func switch_to_mage():
 func wolf_slash():
 	if player.wolf_claw_cd <= 0.0:
 		$AnimationPlayer.play("wolf_slash_2")
+		Sfx.play(WOLF_SLASH_SFX, global_position)
 		player.sm.change_score(-player.sm.config.slash_cost, global_position)
 		#Configure hitbox damage
 		meleeHB.set_damage(player.sm.config.slash_damage)
@@ -100,11 +103,10 @@ func shoot():
 	b.dir = (get_global_mouse_position() - player.global_position).normalized()
 	get_tree().root.add_child(b)
 
-#
-#func _on_animation_player_animation_started(anim_name: StringName) -> void:
-	#if anim_name == "wolf_slash_2":
-		#$MeleeHitBox/CollisionShape2D.disabled = false
-#
-#func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	#if anim_name == "wolf_slash_2":
-		#$MeleeHitBox/CollisionShape2D.disabled = true
+func _on_animation_player_animation_started(anim_name: StringName) -> void:
+	if anim_name == "wolf_slash_2":
+		$MeleeHitBox/CollisionShape2D.disabled = false
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "wolf_slash_2":
+		$MeleeHitBox/CollisionShape2D.disabled = true

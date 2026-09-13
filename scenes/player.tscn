@@ -1,79 +1,15 @@
 [gd_scene format=3 uid="uid://egsep8g1epv"]
 
 [ext_resource type="Script" uid="uid://bvx0igyjf7bc2" path="res://scripts/player.gd" id="1_player"]
-[ext_resource type="Texture2D" uid="uid://bim3rj8nfd03w" path="res://assets/necromancer.png" id="2_necro"]
-[ext_resource type="Texture2D" uid="uid://dipgu25pyvfr6" path="res://assets/hand_l.png" id="3_handl"]
+[ext_resource type="Texture2D" uid="uid://c0rsdk68md16k" path="res://assets/necromancer.png" id="2_necro"]
 [ext_resource type="Script" uid="uid://c3hfelrxossy4" path="res://scenes/hand_rig.gd" id="3_smehm"]
-[ext_resource type="Texture2D" uid="uid://qaend1tkon7" path="res://assets/hand_r.png" id="4_handr"]
+[ext_resource type="Texture2D" uid="uid://dcg38lq60fptu" path="res://assets/hand_l_werewolf.png" id="4_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://bfm6gfp4k0a8g" path="res://assets/hand_r_werewolf.png" id="5_d2wvv"]
 [ext_resource type="Script" uid="uid://dciw2d4b2myip" path="res://components/hurtbox/hurt_box.gd" id="5_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://cq8hn0s5svofn" path="res://components/health/health.tscn" id="6_fjrip"]
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="7_fjrip"]
 [ext_resource type="Texture2D" uid="uid://xe62rnbx6c6k" path="res://assets/circle1.png" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://b7ucvftwk60fe" path="res://scenes/parry.gd" id="9_y4r1p"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
-atlas = ExtResource("2_necro")
-region = Rect2(0, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f1"]
-atlas = ExtResource("2_necro")
-region = Rect2(24, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f2"]
-atlas = ExtResource("2_necro")
-region = Rect2(48, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f3"]
-atlas = ExtResource("2_necro")
-region = Rect2(72, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f4"]
-atlas = ExtResource("2_necro")
-region = Rect2(96, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f5"]
-atlas = ExtResource("2_necro")
-region = Rect2(120, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f6"]
-atlas = ExtResource("2_necro")
-region = Rect2(144, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f7"]
-atlas = ExtResource("2_necro")
-region = Rect2(168, 0, 24, 24)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_body"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f7")
-}],
-"loop": 1,
-"name": &"bob",
-"speed": 10.0
-}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 16.0
@@ -128,18 +64,6 @@ tracks/3/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("%MeleeHitBox/CollisionShape2D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_ur7pv"]
 resource_name = "wolf_slash"
@@ -171,7 +95,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_d2wvv"]
 resource_name = "wolf_slash_2"
-length = 0.43333334
+length = 0.38
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -179,10 +103,10 @@ tracks/0/path = NodePath("HandL:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.03333336, 0.13333334, 0.20000003, 0.26666668, 0.43333334),
-"transitions": PackedFloat32Array(1, 1, 1, 5.278033, 2.6390176),
+"times": PackedFloat32Array(0, 0.08, 0.105, 0.13, 0.2, 0.34),
+"transitions": PackedFloat32Array(0.5, 1, 1, 0.5, -2, 1),
 "update": 0,
-"values": [Vector2(0, -25), Vector2(-25.605, -32.52), Vector2(-13.525, -74.905), Vector2(10.93, 4.81), Vector2(0, -25)]
+"values": [Vector2(0, -25), Vector2(-14, -40), Vector2(20, -34), Vector2(36, 16), Vector2(40, 24), Vector2(0, -25)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -191,10 +115,10 @@ tracks/1/path = NodePath("HandR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.03333336, 0.13333334, 0.20000003, 0.26666668, 0.43333334),
-"transitions": PackedFloat32Array(1, 1, 1, 2.1435468, 1),
+"times": PackedFloat32Array(0, 0.09, 0.135, 0.16, 0.23, 0.38),
+"transitions": PackedFloat32Array(0.5, 1, 1, 0.5, -2, 1),
 "update": 0,
-"values": [Vector2(0, 25), Vector2(-25.995, 37.035), Vector2(-15.665, 63.895), Vector2(10.97, -8.23), Vector2(0, 25)]
+"values": [Vector2(0, 25), Vector2(-14, 40), Vector2(20, 34), Vector2(36, -16), Vector2(40, -24), Vector2(0, 25)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -203,10 +127,10 @@ tracks/2/path = NodePath("HandL:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.03333336, 0.13333334, 0.20000002, 0.43333334),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.08, 0.105, 0.13, 0.2, 0.34),
+"transitions": PackedFloat32Array(0.5, 1, 1, 0.5, -2, 1),
 "update": 0,
-"values": [0.0, 0.0, 0.7853981633974483, 0.0]
+"values": [0.0, -0.6, 0.2, 1.0, 1.15, 0.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -215,22 +139,10 @@ tracks/3/path = NodePath("HandR:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.03333336, 0.13333334, 0.20000002, 0.43333334),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.09, 0.135, 0.16, 0.23, 0.38),
+"transitions": PackedFloat32Array(0.5, 1, 1, 0.5, -2, 1),
 "update": 0,
-"values": [0.0, 0.0, -0.7853981633974483, 0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("%MeleeHitBox/CollisionShape2D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.26666668, 0.43333334),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
+"values": [0.0, 0.6, -0.2, -1.0, -1.15, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y4r1p"]
@@ -312,7 +224,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_3v2ag"]
 resource_name = "Parry"
-length = 0.19999999999999998
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -335,7 +247,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.099999994, 0.13333334),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [10.0, 100.0, 118.07000000000001]
+"values": [10.0, 100.0, 118.07]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -439,11 +351,9 @@ script = ExtResource("1_player")
 health_component = NodePath("Health")
 hand_radius = 26.0
 
-[node name="Body" type="AnimatedSprite2D" parent="." unique_id=1086287996]
+[node name="Body" type="Sprite2D" parent="." unique_id=1086287996]
 scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_body")
-animation = &"bob"
-frame_progress = 0.1839565
+texture = ExtResource("2_necro")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1105357055]
 position = Vector2(0, 16)
@@ -458,13 +368,13 @@ parry_anim = NodePath("../Parry/ParryAnim")
 [node name="HandL" type="Sprite2D" parent="HandRig" unique_id=1868323931]
 position = Vector2(0, -25)
 scale = Vector2(2, 2)
-texture = ExtResource("3_handl")
+texture = ExtResource("4_y4r1p")
 offset = Vector2(6, 0)
 
 [node name="HandR" type="Sprite2D" parent="HandRig" unique_id=1416843035]
 position = Vector2(0, 25)
 scale = Vector2(2, 2)
-texture = ExtResource("4_handr")
+texture = ExtResource("5_d2wvv")
 offset = Vector2(6, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HandRig" unique_id=1830999441]

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cq8hn0s5svofn" path="res://components/health/health.tscn" id="1_hfuf0"]
 [ext_resource type="Script" uid="uid://dciw2d4b2myip" path="res://components/hurtbox/hurt_box.gd" id="2_bwstf"]
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="3_20vm6"]
-[ext_resource type="Texture2D" uid="uid://dipgu25pyvfr6" path="res://assets/hand_l.png" id="4_bwstf"]
+[ext_resource type="Texture2D" uid="uid://c731gyge3e2ay" path="res://assets/zombie.png" id="5_20vm6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_smehm"]
 radius = 47.15413
@@ -44,7 +44,8 @@ health_component = NodePath("../Health")
 shape = SubResource("CircleShape2D_hrxsu")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=682747211]
-texture = ExtResource("4_bwstf")
+scale = Vector2(4, 4)
+texture = ExtResource("5_20vm6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=227911424]
 shape = SubResource("CircleShape2D_bwstf")
