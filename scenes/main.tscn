@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://brbtaetx3ubaf" path="res://components/wave_manager.gd" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://d0yhjpir3ngkj" path="res://enemies/bat/bat.tscn" id="12_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://0ex62gk6em53" path="res://ui/pause.tscn" id="13_pause"]
+[ext_resource type="Texture2D" uid="uid://b1gtoh7iprwus" path="res://assets/bg.png" id="14_bg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tipki"]
 shader = ExtResource("6_85g3d")
@@ -20,6 +21,11 @@ shader_parameter/inner_radius = 0.0
 shader_parameter/outer_radius = 1.0
 
 [node name="Main" type="Node2D" unique_id=1072304149]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1580734921]
+z_index = -10
+scale = Vector2(4, 4)
+texture = ExtResource("14_bg")
 
 [node name="Grid" type="Node2D" parent="." unique_id=1266680200]
 script = ExtResource("1_grid")
