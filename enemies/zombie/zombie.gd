@@ -4,6 +4,7 @@ class_name Zombie
 var speed: float
 @export var acceleration:float = 100.0
 @onready var hc: HealthComponent = %Health
+@onready var sprite: AnimatedSprite2D = $Sprite2D
 var config: ScoreConfig
 var dir:= Vector2.ZERO
 var knockback:= Vector2.ZERO
@@ -45,5 +46,12 @@ func _process(delta: float) -> void:
 		dir = (player_ref.global_position - global_position).normalized()
 		velocity = velocity.move_toward(dir * speed, acceleration * delta)
 		velocity += knockback
+		sprite.flip_h = dir.x < 0.0 # player is to the left, so the zombie is approaching from the left
 	move_and_slide()
-		
+
+	if velocity.length() > 1.0:
+		if not sprite.is_playing():
+			sprite.play("bob")
+	elif sprite.is_playing():
+		sprite.stop() # rewinds to frame 0, the neutral standing pose
+	

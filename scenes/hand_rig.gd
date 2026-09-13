@@ -12,6 +12,8 @@ extends Node2D
 signal dash_used
 
 const WOLF_SLASH_SFX := preload("res://sounds/sfx/wolfattack.wav")
+const WOLF_PARRY_SFX := preload("res://sounds/sfx/parry2.wav")
+
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("action1"):
@@ -67,6 +69,7 @@ func wolf_slash():
 	
 func wolf_parry():
 	if player.wolf_parry_cd <= 0.0:
+		Sfx.play(WOLF_PARRY_SFX, global_position)
 		parry_anim.play("Parry")
 		player.sm.change_score(-player.sm.config.parry_cost, global_position)
 		player.wolf_parry_cd = player.sm.config.wolf_parry_cd
@@ -79,7 +82,8 @@ func sharp_shoot():
 
 func sharp_dash():
 	if player.sharp_dash_cd <= 0.0:
-		#emit signal so parent can run dash physics on player
+		player.dash.dash()
+		dash_used.emit()
 		player.sm.change_score(-player.sm.config.dash_cost, global_position)
 		player.sharp_dash_cd = player.sm.config.sharp_dash_cd
 

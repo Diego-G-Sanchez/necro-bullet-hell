@@ -11,11 +11,12 @@ class_name ScoreConfig
 @export_group("Wolf")
 @export var drain_per_second: float = 2.0
 @export var slash_cost: float = 1.0
-@export var parry_cost: float = 1.0
+@export var parry_cost: float = 10.0
+@export var parry_points_per_bullet: float = 3.0
 @export var wolf_swap_cost: float = 5
 
 @export var slash_damage: float = 1.0
-@export var wolf_parry_cd: float = 1.0
+@export var wolf_parry_cd: float = 5.0
 @export var wolf_claw_cd: float = .33
 
 @export_group("Sharp")
@@ -27,6 +28,11 @@ class_name ScoreConfig
 @export var sharp_swap_cost: float = 10.0
 @export var sharp_shoot_cd: float = 1.0
 @export var sharp_dash_cd: float = 1.0
+@export var dash_speed: float = 700.0
+## How long the dash burst lasts, in physics frames.
+@export var dash_frames: int = 10
+## How many physics frames the player can't be hit, counted from dash start.
+@export var dash_iframes: int = 20
 
 @export_group("Mage")
 @export var frost_cost: float = 1.0
