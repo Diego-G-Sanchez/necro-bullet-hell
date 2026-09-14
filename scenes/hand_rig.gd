@@ -77,7 +77,7 @@ func switch_to_mage():
 	player.sm.change_score(-player.sm.config.mage_swap_cost, global_position)
 	player.hand_state = player.Hands.Mage
 	$HandL.texture = preload("res://assets/hand_l_mage.png")
-	$HandR.texture = preload("res://assets/hand_l_mage.png")
+	$HandR.texture = preload("res://assets/hand_r_mage.png")
 	
 func wolf_slash():
 	if player.wolf_claw_cd <= 0.0:
@@ -112,16 +112,24 @@ func sharp_dash():
 
 func mage_frost():
 	if player.mage_frost_cd <= 0.0:
+		$AnimationPlayer.play("mage_frost_cast")
 		shoot(bulletFrost)
 		player.sm.change_score(-player.sm.config.frost_cost, global_position)
 		player.mage_frost_cd = player.sm.config.mage_frost_cd
 
 func mage_fire_bomb():
-	
+
 	if player.mage_fireball_cd <= 0.0:
+		$AnimationPlayer.play("mage_fireball_cast")
 		shoot(bulletFireball)
 		player.sm.change_score(-player.sm.config.fire_ball_cost, global_position)
 		player.mage_fireball_cd = player.sm.config.mage_fireball_cd
+
+func _emit_frost_shards() -> void:
+	$FrostShards.restart()
+
+func _emit_fire_embers() -> void:
+	$FireEmbers.restart()
 
 
 func shoot(bullet: PackedScene):
