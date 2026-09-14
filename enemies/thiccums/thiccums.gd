@@ -14,6 +14,7 @@ var knockback:= Vector2.ZERO
 var player_ref: Player
 var initial_scale: Vector2
 var light_offset_x: float
+const HIT_PARTICLES := preload("res://scenes/enemy_hit_particles.tscn")
 
 func get_player_ref():
 	var player_nodes = get_tree().get_nodes_in_group("Player")
@@ -48,6 +49,16 @@ func _on_damage_taken(dmg_taken:int):
 	flash_red(dmg_taken)
 
 func flash_red(dmg_taken:int):
+	var p = HIT_PARTICLES.instantiate()
+	p.global_position = global_position
+	var mat: ParticleProcessMaterial = p.process_material.duplicate()
+	mat.scale_min = 4.0*2 * scale.length()
+	mat.scale_max = 44 * scale.length()
+	(p as GPUParticles2D).lifetime = 1.5
+	mat.initial_velocity_min = 50
+	mat.initial_velocity_max = 100
+	p.process_material = mat
+	get_tree().root.add_child(p)
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color.RED, 0.1)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.1)

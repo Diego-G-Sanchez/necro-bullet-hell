@@ -10,6 +10,7 @@ var config: ScoreConfig
 var dir:= Vector2.ZERO
 var knockback:= Vector2.ZERO
 var player_ref: Player
+const HIT_PARTICLES := preload("res://scenes/enemy_hit_particles.tscn")
 
 
 func get_player_ref():
@@ -39,6 +40,9 @@ func death():
 	queue_free()
 	
 func flash_red(dmg_taken:int):
+	var p = HIT_PARTICLES.instantiate()
+	p.global_position = global_position
+	get_tree().root.add_child(p)
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color.RED, 0.1)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.1)
