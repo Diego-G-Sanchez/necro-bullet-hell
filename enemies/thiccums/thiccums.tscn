@@ -145,6 +145,15 @@ _data = {
 &"walk": SubResource("Animation_fjrip")
 }
 
+[sub_resource type="Gradient" id="Gradient_light"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_light"]
+gradient = SubResource("Gradient_light")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
 [sub_resource type="Curve" id="Curve_1ekw4"]
 _data = [Vector2(0, 0.58506227), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.5509018, 0.0, 0, 0]
 point_count = 2
@@ -234,6 +243,15 @@ shape = SubResource("CircleShape2D_bwstf")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1837596762]
 libraries/ = SubResource("AnimationLibrary_smehm")
 autoplay = &"walk"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=883063746]
+position = Vector2(35.66879, 36.942677)
+scale = Vector2(0.95187294, 0.8663917)
+color = Color(0.7782422, 0.051242888, 0.40447178, 1)
+energy = 1.15
+texture = SubResource("GradientTexture2D_light")
+texture_scale = 1.87
+height = 100.0
 
 [node name="Knockback" type="Node" parent="." unique_id=760548441]
 
