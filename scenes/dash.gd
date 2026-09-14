@@ -13,6 +13,11 @@ var _dash_frames_left: int = 0
 var _iframes_left: int = 0
 var _dash_velocity := Vector2.ZERO
 
+## Sandevistan-style afterimage trail: one frozen, cyan-tinted ghost of the body
+## sprite per physics frame while dashing, each fading out on its own.
+const AFTERIMAGE_COLOR := Color(0.2, 0.95, 1.0, 0.55)
+const AFTERIMAGE_FADE_TIME := 0.22
+
 func _ready() -> void:
 	monitoring = false
 	area_entered.connect(_on_area_entered)
@@ -47,6 +52,7 @@ func _physics_process(_delta: float) -> void:
 		_dash_frames_left -= 1
 		player.velocity = _dash_velocity
 		player.move_and_slide()
+		_spawn_afterimage()
 
 	if _iframes_left > 0:
 		_iframes_left -= 1
@@ -59,3 +65,24 @@ func _physics_process(_delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if is_invulnerable() and area.is_in_group("Enemy"):
 		dodged.emit(area)
+
+## Freezes a cyan ghost of the current body frame in place, then fades and
+## slightly grows it before it deletes itself.
+func _spawn_afterimage() -> void:
+	var body_sprite := body as AnimatedSprite2D
+	if body_sprite == null or body_sprite.sprite_frames == null:
+		return
+
+	var ghost := Sprite2D.new()
+	ghost.texture = body_sprite.sprite_frames.get_frame_texture(body_sprite.animation, body_sprite.frame)
+	ghost.global_transform = body_sprite.global_transform
+	ghost.flip_h = body_sprite.flip_h
+	ghost.modulate = AFTERIMAGE_COLOR
+	ghost.z_index = body_sprite.z_index - 1
+	get_tree().root.add_child(ghost)
+
+	var tween := ghost.create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(ghost, "modulate:a", 0.0, AFTERIMAGE_FADE_TIME)
+	tween.tween_property(ghost, "scale", ghost.scale * 1.12, AFTERIMAGE_FADE_TIME)
+	tween.finished.connect(ghost.queue_free)

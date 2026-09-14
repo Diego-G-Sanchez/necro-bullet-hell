@@ -69,7 +69,6 @@ var mage_frost_cd: float = 0.0
 var mage_fireball_cd: float = 0.0
 
 const PARRY_READY_SFX := preload("res://sounds/sfx/parryReady.wav")
-const GUN_READY_SFX := preload("res://sounds/sfx/gunReady.wav")
 const FIREBALL_READY_SFX := preload("res://sounds/sfx/fireballReady.wav")
 
 
@@ -174,7 +173,7 @@ func _apply_rig() -> void:
 func decrement_cooldowns(delta: float) -> void:
 	wolf_parry_cd = _tick_cd(wolf_parry_cd, delta, PARRY_READY_SFX)
 	wolf_claw_cd = maxf(wolf_claw_cd - delta, 0.0)
-	sharp_shoot_cd = _tick_cd(sharp_shoot_cd, delta, GUN_READY_SFX)
+	sharp_shoot_cd = maxf(sharp_shoot_cd - delta, 0.0)
 	sharp_dash_cd = maxf(sharp_dash_cd - delta, 0.0)
 	mage_frost_cd = maxf(mage_frost_cd - delta, 0.0)
 	mage_fireball_cd = _tick_cd(mage_fireball_cd, delta, FIREBALL_READY_SFX)
