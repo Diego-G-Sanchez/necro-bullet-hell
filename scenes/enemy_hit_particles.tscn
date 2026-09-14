@@ -19,7 +19,7 @@ initial_velocity_max = 106.21
 radial_velocity_min = -20.000021
 radial_velocity_max = 19.999977
 gravity = Vector3(0, 98, 0)
-scale_max = 44.17
+scale_max = 20.0
 scale_curve = SubResource("CurveTexture_6pjxh")
 color = Color(0.45490196, 0.101960786, 0.21176471, 0.6627451)
 

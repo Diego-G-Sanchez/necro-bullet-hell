@@ -1170,6 +1170,7 @@ walk_sound = NodePath("Walk")
 hand_radius = 26.0
 
 [node name="Body" type="AnimatedSprite2D" parent="." unique_id=1086287996]
+z_index = 1
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_body")
 animation = &"bob"

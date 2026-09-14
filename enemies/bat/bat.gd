@@ -8,12 +8,14 @@ var acceleration: float
 var dir:= Vector2.ZERO
 var bullet:= preload("res://enemies/bat/bat_bullet.tscn")
 const HIT_PARTICLES := preload("res://scenes/enemy_hit_particles.tscn")
+const DEATH_PARTICLES := preload("res://scenes/enemy_death.tscn")
 @export var timer: Timer
 var player_ref: Player
 var config: ScoreConfig
 
 var knockback := Vector2.ZERO
 var shots_fired := 0
+var dying := false
 
 func get_player_ref():
 	var player_nodes = get_tree().get_nodes_in_group("Player")
@@ -38,12 +40,41 @@ func _ready() -> void:
 
 
 func death():
+	if dying:
+		return
+	dying = true
+	hc.use_health = false
+	var p = DEATH_PARTICLES.instantiate()
+	p.global_position = global_position
+	get_tree().root.add_child(p)
 	var score_increment = config.bat_points_on_kill + randi_range(-config.bat_points_on_kill_variance, config.bat_points_on_kill_variance)
 	player_ref.sm.change_score(score_increment, global_position)
 	Globals.record_kill("bat")
-	queue_free()
-	
+	on_death_tween()
+
+func on_death_tween() -> void:
+	velocity = Vector2.ZERO
+	knockback = Vector2.ZERO
+	$Area2D.set_deferred("monitoring", false)
+	$Area2D.set_deferred("monitorable", false)
+	$Area2D/CollisionShape2D.set_deferred("disabled", true)
+	timer.stop()
+	$Frost/Timer.stop()
+	$AnimationPlayer.stop()
+	$Sprite2D.pause()
+
+	var fall_sign := -1.0 if randi() % 2 == 0 else 1.0
+	var tween := create_tween().set_parallel()
+	tween.tween_property(self, "modulate", Color.RED, 0.2)
+	tween.tween_property(self, "modulate:a", .0, 0.5).set_ease(Tween.EASE_IN)
+	tween.tween_property(self, "rotation_degrees", fall_sign * 90.0, 0.3)
+	tween.tween_property(self, "position:x", fall_sign * 56.0, 0.5) \
+		.as_relative()
+	tween.chain().tween_callback(queue_free)
+
 func flash_red(dmg_taken:int):
+	if dying:
+		return
 	var p = HIT_PARTICLES.instantiate()
 	p.global_position = global_position
 	get_tree().root.add_child(p)
@@ -52,6 +83,8 @@ func flash_red(dmg_taken:int):
 	tween.tween_property(self, "modulate", Color.WHITE, 0.1)
 
 func _process(delta: float) -> void:
+	if dying:
+		return
 	#reduce knockback value over time
 	knockback = knockback.move_toward(Vector2.ZERO, 14000 * delta)
 		
@@ -70,13 +103,18 @@ func _process(delta: float) -> void:
 		
 	
 func _on_timer_timeout() -> void:
+	if dying:
+		return
 	timer.wait_time = randf_range(config.bat_fire_interval_min, config.bat_fire_interval_max)
 	shoot()
 func apply_frost():
+	if dying:
+		return
 	$Frost.apply(config.mage_frost_slow, config.zombie_speed, config.mage_slow_duration)
 
 func shoot():
-
+	if dying:
+		return
 	shots_fired += 1
 	var b = bullet.instantiate() as BatBullet
 	b.global_position = global_position
@@ -87,6 +125,8 @@ func shoot():
 	$Sprite2D.play("shoot")
 
 func apply_knockback(from_position: Vector2) -> void:
+	if dying:
+		return
 	var dir = (global_position - from_position).normalized()
 	knockback = dir * config.bat_knockback_force
 

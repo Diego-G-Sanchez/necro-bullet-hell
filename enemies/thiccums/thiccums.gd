@@ -14,7 +14,10 @@ var knockback:= Vector2.ZERO
 var player_ref: Player
 var initial_scale: Vector2
 var light_offset_x: float
+var dying := false
+var aura_pulse: Tween
 const HIT_PARTICLES := preload("res://scenes/enemy_hit_particles.tscn")
+const DEATH_PARTICLES := preload("res://scenes/enemy_death.tscn")
 
 func get_player_ref():
 	var player_nodes = get_tree().get_nodes_in_group("Player")
@@ -40,20 +43,64 @@ func _ready() -> void:
 	_pulse_aura_visual()
 
 func death():
+	if dying:
+		return
+	dying = true
+	hc.use_health = false
+	var p = DEATH_PARTICLES.instantiate()
+	p.global_position = global_position
+	var mat: ParticleProcessMaterial = p.process_material.duplicate()
+	mat.scale_min = 8.0
+	mat.scale_max = 44.0
+	p.process_material = mat
+	get_tree().root.add_child(p)
 	var score_increment = config.thiccums_points_on_kill + randi_range(-config.thiccums_points_on_kill_variance, config.thiccums_points_on_kill_variance)
 	player_ref.sm.change_score(score_increment, global_position)
 	Globals.record_kill("thiccums")
-	queue_free()
+	on_death_tween()
+
+func on_death_tween() -> void:
+	velocity = Vector2.ZERO
+	knockback = Vector2.ZERO
+	$HitBox.set_deferred("monitorable", false)
+	$HitBox.set_deferred("monitoring", false)
+	$HitBox/CollisionShape2D.set_deferred("disabled", true)
+	$HurtBox.set_deferred("monitoring", false)
+	$HurtBox.set_deferred("monitorable", false)
+	$HitBox/AuraSprite.visible = false
+	$HurtBox/CollisionShape2D.set_deferred("disabled", true)
+	$AuraTick.stop()
+	if aura_pulse and aura_pulse.is_valid():
+		aura_pulse.kill()
+	$GPUParticles2D.emitting = false
+	$Frost/Timer.stop()
+	$AnimationPlayer.stop()
+	sprite.pause()
+
+	var fall_sign := -1.0 if randi() % 2 == 0 else 1.0
+	var tween := create_tween().set_parallel()
+	tween.tween_property(self, "modulate", Color.RED, 0.2)
+	tween.tween_property(self, "modulate:a", .0, 0.5).set_ease(Tween.EASE_IN)
+	tween.tween_property(self, "rotation_degrees", fall_sign * 90.0, 0.3)
+	tween.tween_property(self, "position:x", fall_sign * 56.0, 0.5) \
+		.as_relative()
+	tween.chain().tween_callback(queue_free)
 
 func _on_damage_taken(dmg_taken:int):
 	flash_red(dmg_taken)
 
 func flash_red(dmg_taken:int):
+	if dying:
+		return
 	var p = HIT_PARTICLES.instantiate()
 	p.global_position = global_position
 	var mat: ParticleProcessMaterial = p.process_material.duplicate()
-	mat.scale_min = 4.0*2 * scale.length()
-	mat.scale_max = 44 * scale.length()
+	if scale.length() < 2:
+		mat.scale_min = 4.0*2 * scale.length()/2
+		mat.scale_max = 44 * scale.length()/2
+	else:
+		mat.scale_min = 4.0*2 
+		mat.scale_max = 44 
 	(p as GPUParticles2D).lifetime = 1.5
 	mat.initial_velocity_min = 50
 	mat.initial_velocity_max = 100
@@ -64,13 +111,19 @@ func flash_red(dmg_taken:int):
 	tween.tween_property(self, "modulate", Color.WHITE, 0.1)
 
 func apply_knockback(from_position: Vector2) -> void:
+	if dying:
+		return
 	var knock_dir := (global_position - from_position).normalized()
 	knockback = knock_dir * config.thiccums_knockback_force
 
 func apply_frost():
+	if dying:
+		return
 	$Frost.apply(config.mage_frost_slow, config.thiccums_speed, config.mage_slow_duration)
 
 func _process(delta: float) -> void:
+	if dying:
+		return
 	#reduce knockback value over time
 	knockback = knockback.move_toward(Vector2.ZERO, 14000 * delta)
 
@@ -94,14 +147,16 @@ func _process(delta: float) -> void:
 	arena_bounds.apply(delta)
 
 func _on_aura_tick() -> void:
+	if dying:
+		return
 	var shape: CollisionShape2D = $HitBox/CollisionShape2D
 	shape.set_deferred("disabled", true)
 	await get_tree().physics_frame
-	if is_instance_valid(self):
+	if is_instance_valid(self) and not dying:
 		shape.set_deferred("disabled", false)
 
 func _pulse_aura_visual() -> void:
 	var aura_sprite: Sprite2D = $HitBox/AuraSprite
-	var pulse := create_tween().set_loops()
-	pulse.tween_property(aura_sprite, "modulate:a", 0.12, 0.6)
-	pulse.tween_property(aura_sprite, "modulate:a", 0.32, 0.6)
+	aura_pulse = create_tween().set_loops()
+	aura_pulse.tween_property(aura_sprite, "modulate:a", 0.12, 0.6)
+	aura_pulse.tween_property(aura_sprite, "modulate:a", 0.32, 0.6)

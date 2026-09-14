@@ -2,15 +2,17 @@ extends CharacterBody2D
 class_name Zombie
 
 var speed: float
-@export var acceleration:float = 100.0
+@export var acceleration: float = 100.0
 @onready var hc: HealthComponent = %Health
 @onready var sprite: AnimatedSprite2D = $Sprite2D
 @export var arena_bounds: ArenaBounds
 var config: ScoreConfig
-var dir:= Vector2.ZERO
-var knockback:= Vector2.ZERO
+var dir := Vector2.ZERO
+var knockback := Vector2.ZERO
 var player_ref: Player
+var dying := false
 const HIT_PARTICLES := preload("res://scenes/enemy_hit_particles.tscn")
+const DEATH_PARTICLES := preload("res://scenes/enemy_death.tscn")
 
 
 func get_player_ref():
@@ -34,12 +36,43 @@ func _ready() -> void:
 	$HitBox.set_damage(config.zombie_damage)
 	
 func death():
+	if dying:
+		return
+	dying = true
+	hc.use_health = false
+	var p = DEATH_PARTICLES.instantiate()
+	p.global_position = global_position
+	get_tree().root.add_child(p)
 	var score_increment = config.zombie_points_on_kill + randi_range(-config.zombie_points_on_kill_variance, config.zombie_points_on_kill_variance)
 	player_ref.sm.change_score(score_increment, global_position)
 	Globals.record_kill("zombie")
-	queue_free()
+	on_death_tween()
+
+func on_death_tween() -> void:
+	velocity = Vector2.ZERO
+	knockback = Vector2.ZERO
+	$HitBox.set_deferred("monitorable", false)
+	$HitBox.set_deferred("monitoring", false)
+	$HitBox/CollisionShape2D.set_deferred("disabled", true)
+	$HurtBox.set_deferred("monitoring", false)
+	$HurtBox.set_deferred("monitorable", false)
+	$HurtBox/CollisionShape2D.set_deferred("disabled", true)
+	$Frost/Timer.stop()
+	$AnimationPlayer.stop()
+	sprite.pause()
+
+	var fall_sign := -1.0 if randi() % 2 == 0 else 1.0
+	var tween := create_tween().set_parallel()
+	tween.tween_property(self, "modulate", Color.RED, 0.2)
+	tween.tween_property(self, "modulate:a", .0, 0.5).set_ease(Tween.EASE_IN)
+	tween.tween_property(self, "rotation_degrees", fall_sign * 90.0, 0.3)
+	tween.tween_property(self, "position:x", fall_sign * 56.0, 0.5) \
+		.as_relative()
+	tween.chain().tween_callback(queue_free)
 	
-func flash_red(dmg_taken:int):
+func flash_red(dmg_taken: int):
+	if dying:
+		return
 	var p = HIT_PARTICLES.instantiate()
 	p.global_position = global_position
 	get_tree().root.add_child(p)
@@ -48,13 +81,19 @@ func flash_red(dmg_taken:int):
 	tween.tween_property(self, "modulate", Color.WHITE, 0.1)
 	
 func apply_knockback(from_position: Vector2) -> void:
+	if dying:
+		return
 	var knock_dir := (global_position - from_position).normalized()
 	knockback = knock_dir * config.zombie_knockback_force
 	
 func apply_frost():
+	if dying:
+		return
 	$Frost.apply(config.mage_frost_slow, config.zombie_speed, config.mage_slow_duration)
 
 func _process(delta: float) -> void:
+	if dying:
+		return
 	#reduce knockback value over time
 	knockback = knockback.move_toward(Vector2.ZERO, 14000 * delta)
 		

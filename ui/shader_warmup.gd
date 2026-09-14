@@ -7,6 +7,12 @@ static var completed: bool = false
 const VIGNETTE_SHADER := preload("res://scenes/vignette.gdshader")
 const HAND_SWAP := preload("res://scenes/hand_swap_particle.tscn")
 const THICCUMS := preload("res://enemies/thiccums/thiccums.tscn")
+const ENEMY_HIT := preload("res://scenes/enemy_hit_particles.tscn")
+const ENEMY_DEATH := preload("res://scenes/enemy_death.tscn")
+const PLAYERBULLET_PARTICLES := preload("res://scenes/playerbullet_particles.tscn")
+const FROST_PARTICLES := preload("res://scenes/frost_particles.tscn")
+const FIREBALL_PARTICLES := preload("res://scenes/fireball_particles.tscn")
+const PLAYER := preload("res://scenes/player.tscn")
 
 @onready var status_label: Label = %Status
 @onready var holder: Node2D = %Holder
@@ -20,6 +26,13 @@ func run() -> void:
 	await _draw_vignette()
 	await _draw_hand_swap()
 	await _draw_thiccums_particles()
+	await _draw_enemy_hit()
+	await _draw_enemy_death()
+	await _draw_playerbullet_particles()
+	await _draw_frost_particles()
+	await _draw_fireball_particles()
+	await _draw_frost_shards()
+	await _draw_fire_embers()
 	await _draw_fireball_light()
 	await _draw_explosion_light()
 	completed = true
@@ -59,10 +72,8 @@ func _draw_vignette() -> void:
 	await get_tree().process_frame
 
 
-func _draw_hand_swap() -> void:
-	status_label.text = "Preparing particles…"
-	var particles := HAND_SWAP.instantiate() as GPUParticles2D
-	if particles.finished.is_connected(particles._on_finished):
+func _draw_gpu_particles(particles: GPUParticles2D) -> void:
+	if particles.has_method("_on_finished") and particles.finished.is_connected(particles._on_finished):
 		particles.finished.disconnect(particles._on_finished)
 	particles.position = _center()
 	holder.add_child(particles)
@@ -73,19 +84,53 @@ func _draw_hand_swap() -> void:
 	await get_tree().process_frame
 
 
-func _draw_thiccums_particles() -> void:
+func _draw_particle_scene(packed: PackedScene) -> void:
 	status_label.text = "Preparing particles…"
-	var enemy := THICCUMS.instantiate()
-	var src := enemy.get_node("GPUParticles2D") as GPUParticles2D
-	var particles := src.duplicate() as GPUParticles2D
-	particles.position = _center()
-	particles.emitting = true
-	holder.add_child(particles)
-	particles.restart()
-	enemy.free()
-	await _wait_draw()
-	particles.queue_free()
-	await get_tree().process_frame
+	await _draw_gpu_particles(packed.instantiate() as GPUParticles2D)
+
+
+func _draw_nested_particles(packed: PackedScene, node_path: NodePath) -> void:
+	status_label.text = "Preparing particles…"
+	var root := packed.instantiate()
+	var particles := root.get_node(node_path).duplicate() as GPUParticles2D
+	root.free()
+	await _draw_gpu_particles(particles)
+
+
+func _draw_hand_swap() -> void:
+	await _draw_particle_scene(HAND_SWAP)
+
+
+func _draw_thiccums_particles() -> void:
+	await _draw_nested_particles(THICCUMS, "GPUParticles2D")
+
+
+func _draw_enemy_hit() -> void:
+	await _draw_particle_scene(ENEMY_HIT)
+
+
+func _draw_enemy_death() -> void:
+	await _draw_particle_scene(ENEMY_DEATH)
+
+
+func _draw_playerbullet_particles() -> void:
+	await _draw_particle_scene(PLAYERBULLET_PARTICLES)
+
+
+func _draw_frost_particles() -> void:
+	await _draw_particle_scene(FROST_PARTICLES)
+
+
+func _draw_fireball_particles() -> void:
+	await _draw_particle_scene(FIREBALL_PARTICLES)
+
+
+func _draw_frost_shards() -> void:
+	await _draw_nested_particles(PLAYER, "HandRig/FrostShards")
+
+
+func _draw_fire_embers() -> void:
+	await _draw_nested_particles(PLAYER, "HandRig/FireEmbers")
 
 
 func _draw_fireball_light() -> void:
