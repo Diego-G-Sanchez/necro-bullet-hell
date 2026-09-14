@@ -9,11 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://cq8hn0s5svofn" path="res://components/health/health.tscn" id="6_fjrip"]
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="7_fjrip"]
 [ext_resource type="Texture2D" uid="uid://dtgcdja021h2y" path="res://assets/slash.png" id="7_jej6c"]
-[ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="9_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://xe62rnbx6c6k" path="res://assets/circle1.png" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://b7ucvftwk60fe" path="res://scenes/parry.gd" id="9_y4r1p"]
 [ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="10_arena"]
 [ext_resource type="Script" uid="uid://byxkna3h1crpg" path="res://scenes/dash.gd" id="10_dash"]
 [ext_resource type="AudioStream" uid="uid://bluojk5edengb" path="res://sounds/sfx/walk.wav" id="14_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://cdo6x5whtwnq4" path="res://assets/pixel.png" id="15_pixel"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0"]
 atlas = ExtResource("2_necro")
@@ -156,6 +157,282 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FrostOrb:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.35, 0.75, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("FrostOrb:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1, 0.1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FireOrb:self_modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.35, 0.08, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("FireOrb:scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1, 0.1)]
+}
+
+[sub_resource type="Animation" id="Animation_firecast"]
+resource_name = "mage_fireball_cast"
+length = 0.44
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HandL:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.14, 0.22, 0.3, 0.44),
+"transitions": PackedFloat32Array(0.5, 1, 1, 0.5, -2, 1),
+"update": 0,
+"values": [Vector2(0, -25), Vector2(-10, -34), Vector2(6, -46), Vector2(30, -18), Vector2(46, 4), Vector2(0, -25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HandR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.14, 0.22, 0.3, 0.44),
+"transitions": PackedFloat32Array(0.5, 1, 1, 0.5, -2, 1),
+"update": 0,
+"values": [Vector2(0, 25), Vector2(-10, 34), Vector2(6, 46), Vector2(30, 18), Vector2(46, -4), Vector2(0, 25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HandL:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.14, 0.22, 0.3, 0.44),
+"transitions": PackedFloat32Array(0.5, 1, 1, 0.5, -2, 1),
+"update": 0,
+"values": [0.0, -0.4, -1.1, 0.3, 1.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HandR:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.14, 0.22, 0.3, 0.44),
+"transitions": PackedFloat32Array(0.5, 1, 1, 0.5, -2, 1),
+"update": 0,
+"values": [0.0, 0.4, 1.1, -0.3, -1.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FireOrb:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.1, 0.14, 0.22, 0.3, 0.44),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, -2, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(0.6, 0.6), Vector2(0.4, 0.4), Vector2(1, 1), Vector2(1.6, 1.6), Vector2(2.8, 2.8), Vector2(0.1, 0.1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FireOrb:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.14, 0.22, 0.3, 0.44),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 0.5, 1),
+"update": 0,
+"values": [Color(1, 0.9, 0.3, 0), Color(1, 0.9, 0.3, 0.6), Color(1, 0.55, 0.1, 0.9), Color(1, 0.2, 0.05, 1), Color(1, 0.6, 0.1, 1), Color(1, 0.35, 0.08, 0)]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_emit_fire_embers"
+}]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SlashSprite:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FrostOrb:self_modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.35, 0.75, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_frostcast"]
+resource_name = "mage_frost_cast"
+length = 0.34
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HandL:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.18, 0.22, 0.34),
+"transitions": PackedFloat32Array(1, 1, 1, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, -25), Vector2(14, -12), Vector2(18, -6), Vector2(-6, -28), Vector2(0, -25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HandR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.18, 0.22, 0.34),
+"transitions": PackedFloat32Array(1, 1, 1, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 25), Vector2(14, 12), Vector2(18, 6), Vector2(-6, 28), Vector2(0, 25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HandL:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.18, 0.22, 0.34),
+"transitions": PackedFloat32Array(1, 1, 1, 0.5, 1),
+"update": 0,
+"values": [0.0, -0.3, -0.45, 0.15, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HandR:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.18, 0.22, 0.34),
+"transitions": PackedFloat32Array(1, 1, 1, 0.5, 1),
+"update": 0,
+"values": [0.0, 0.3, 0.45, -0.15, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FrostOrb:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.14, 0.18, 0.2, 0.34),
+"transitions": PackedFloat32Array(1, 1, 1, 1, -2, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(0.5, 0.5), Vector2(0.9, 0.9), Vector2(1.3, 1.3), Vector2(2.4, 2.4), Vector2(0.1, 0.1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FrostOrb:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.14, 0.18, 0.2, 0.34),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.35, 0.75, 1, 0), Color(0.35, 0.75, 1, 0.6), Color(0.55, 0.9, 1, 0.85), Color(0.8, 0.97, 1, 1), Color(0.8, 0.97, 1, 0.4), Color(0.35, 0.75, 1, 0)]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_emit_frost_shards"
+}]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SlashSprite:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FireOrb:self_modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.35, 0.08, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ur7pv"]
 resource_name = "wolf_slash"
@@ -260,16 +537,77 @@ tracks/5/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.15686275), Color(0.45490196, 0.101960786, 0.21176471, 1), Color(1, 1, 1, 0.021471083), Color(1, 1, 1, 0)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FrostOrb:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.35, 0.75, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("FireOrb:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.35, 0.08, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y4r1p"]
 _data = {
 &"RESET": SubResource("Animation_y4r1p"),
+&"mage_fireball_cast": SubResource("Animation_firecast"),
+&"mage_frost_cast": SubResource("Animation_frostcast"),
 &"wolf_slash": SubResource("Animation_ur7pv"),
 &"wolf_slash_2": SubResource("Animation_d2wvv")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_smehm"]
 radius = 54.67
+
+[sub_resource type="Gradient" id="Gradient_frostshards"]
+offsets = PackedFloat32Array(0, 0, 1)
+colors = PackedColorArray(0.85, 0.97, 1, 1, 0.4, 0.8, 1, 0.6, 0.3, 0.7, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_frostshards"]
+gradient = SubResource("Gradient_frostshards")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_frostshards"]
+spread = 180.0
+initial_velocity_min = 60.0
+initial_velocity_max = 140.0
+gravity = Vector3(0, 0, 0)
+damping_min = 80.0
+damping_max = 120.0
+scale_min = 6.0
+scale_max = 12.0
+color_ramp = SubResource("GradientTexture1D_frostshards")
+
+[sub_resource type="Gradient" id="Gradient_fireembers"]
+offsets = PackedFloat32Array(0, 0, 1)
+colors = PackedColorArray(1, 0.85, 0.3, 1, 1, 0.3, 0.05, 0.6, 0.3, 0.05, 0.05, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fireembers"]
+gradient = SubResource("Gradient_fireembers")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fireembers"]
+direction = Vector3(0, -1, 0)
+spread = 50.0
+initial_velocity_min = 40.0
+initial_velocity_max = 90.0
+gravity = Vector3(0, -20, 0)
+scale_min = 8.0
+scale_max = 16.0
+color_ramp = SubResource("GradientTexture1D_fireembers")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
 radius = 16.17
@@ -527,6 +865,39 @@ position = Vector2(51.000004, -4.9999995)
 rotation = 1.5803216
 texture = ExtResource("7_jej6c")
 
+[node name="FrostOrb" type="Sprite2D" parent="HandRig" unique_id=1434168944]
+self_modulate = Color(0.35, 0.75, 1, 0)
+position = Vector2(24, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("9_ur7pv")
+
+[node name="FireOrb" type="Sprite2D" parent="HandRig" unique_id=248534516]
+self_modulate = Color(1, 0.35, 0.08, 0)
+position = Vector2(24, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("9_ur7pv")
+
+[node name="FrostShards" type="GPUParticles2D" parent="HandRig" unique_id=487638717]
+position = Vector2(24, 0)
+scale = Vector2(5, 5)
+emitting = false
+amount = 14
+texture = ExtResource("15_pixel")
+lifetime = 0.35
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_frostshards")
+
+[node name="FireEmbers" type="GPUParticles2D" parent="HandRig" unique_id=175561583]
+position = Vector2(24, 0)
+emitting = false
+amount = 16
+texture = ExtResource("15_pixel")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_fireembers")
+
 [node name="Health" parent="." unique_id=889141822 instance=ExtResource("6_fjrip")]
 use_health = false
 
@@ -586,7 +957,6 @@ shape = SubResource("CircleShape2D_hrxsu")
 stream = ExtResource("14_f1ej7")
 volume_db = -17.227
 pitch_scale = 0.65
-bus = &"SFX"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=761150740]
 scale = Vector2(4.3200006, 3.7182505)

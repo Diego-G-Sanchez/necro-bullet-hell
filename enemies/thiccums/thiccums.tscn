@@ -245,8 +245,8 @@ libraries/ = SubResource("AnimationLibrary_smehm")
 autoplay = &"walk"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=883063746]
-position = Vector2(35.66879, 36.942677)
-scale = Vector2(0.95187294, 0.8663917)
+position = Vector2(38.21656, 21.019106)
+scale = Vector2(1.0218332, 1.0111891)
 color = Color(0.7782422, 0.051242888, 0.40447178, 1)
 energy = 1.15
 texture = SubResource("GradientTexture2D_light")
