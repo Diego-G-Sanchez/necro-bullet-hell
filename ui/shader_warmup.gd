@@ -55,7 +55,7 @@ func _center() -> Vector2:
 
 
 func _draw_vignette() -> void:
-	status_label.text = "Preparing shaders…"
+	status_label.text = "Preparing shaders..."
 	var rect := ColorRect.new()
 	rect.set_anchors_preset(Control.PRESET_FULL_RECT)
 	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -85,12 +85,12 @@ func _draw_gpu_particles(particles: GPUParticles2D) -> void:
 
 
 func _draw_particle_scene(packed: PackedScene) -> void:
-	status_label.text = "Preparing particles…"
+	status_label.text = "Preparing particles..."
 	await _draw_gpu_particles(packed.instantiate() as GPUParticles2D)
 
 
 func _draw_nested_particles(packed: PackedScene, node_path: NodePath) -> void:
-	status_label.text = "Preparing particles…"
+	status_label.text = "Preparing particles..."
 	var root := packed.instantiate()
 	var particles := root.get_node(node_path).duplicate() as GPUParticles2D
 	root.free()
@@ -134,7 +134,7 @@ func _draw_fire_embers() -> void:
 
 
 func _draw_fireball_light() -> void:
-	status_label.text = "Preparing lights…"
+	status_label.text = "Preparing lights..."
 	var light := _make_point_light(Vector2(0.4, 0.4), 1.7)
 	light.position = _center()
 	holder.add_child(light)
@@ -144,7 +144,7 @@ func _draw_fireball_light() -> void:
 
 
 func _draw_explosion_light() -> void:
-	status_label.text = "Preparing lights…"
+	status_label.text = "Preparing lights..."
 	var light := _make_point_light(Vector2(1.71, 1.71), 2.8)
 	light.position = _center()
 	holder.add_child(light)
