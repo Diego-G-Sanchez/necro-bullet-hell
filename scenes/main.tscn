@@ -14,9 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://d0yhjpir3ngkj" path="res://enemies/bat/bat.tscn" id="12_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://0ex62gk6em53" path="res://ui/pause.tscn" id="13_pause"]
 [ext_resource type="PackedScene" uid="uid://dth1ccum5tscn" path="res://enemies/thiccums/thiccums.tscn" id="13_trceg"]
-[ext_resource type="Texture2D" uid="uid://b1gtoh7iprwus" path="res://assets/bg.png" id="14_bg"]
+[ext_resource type="Texture2D" uid="uid://bfbp60yghanbl" path="res://assets/bg.png" id="14_bg"]
 [ext_resource type="PackedScene" path="res://components/obstacle/obstacle.tscn" id="15_obstacle"]
-[ext_resource type="PackedScene" path="res://components/obstacle/wall.tscn" id="16_wall"]
+[ext_resource type="PackedScene" uid="uid://bpt23va4cmjak" path="res://scenes/torch.tscn" id="18_dp3eg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grave1"]
 size = Vector2(50, 60)
@@ -30,9 +30,6 @@ size = Vector2(60, 65)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grave4"]
 size = Vector2(60, 65)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall1"]
-size = Vector2(1285, 39)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tipki"]
 shader = ExtResource("6_85g3d")
 shader_parameter/alpha = 0.1
@@ -43,7 +40,8 @@ shader_parameter/outer_radius = 1.0
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1580734921]
 z_index = -10
-scale = Vector2(4, 4)
+position = Vector2(0, 9)
+scale = Vector2(4, 4.1)
 texture = ExtResource("14_bg")
 
 [node name="Grid" type="Node2D" parent="." unique_id=1266680200]
@@ -76,22 +74,6 @@ position = Vector2(410, 110)
 
 [node name="CollisionShape2D" parent="Obstacles/Graveyard/Grave4" index="0"]
 shape = SubResource("RectangleShape2D_grave4")
-
-[node name="Walls" type="Node2D" parent="Obstacles" unique_id=1957302846]
-
-[node name="Wall1" parent="Obstacles/Walls" unique_id=318845702 instance=ExtResource("16_wall")]
-position = Vector2(0, -260)
-
-[node name="CollisionShape2D" parent="Obstacles/Walls/Wall1" index="0"]
-position = Vector2(-0.5, -82)
-shape = SubResource("RectangleShape2D_wall1")
-
-[node name="Wall2" parent="Obstacles/Walls" unique_id=1554077753 instance=ExtResource("16_wall")]
-position = Vector2(0, -260)
-
-[node name="CollisionShape2D" parent="Obstacles/Walls/Wall2" index="0"]
-position = Vector2(8, 599)
-shape = SubResource("RectangleShape2D_wall1")
 
 [node name="Player" parent="." unique_id=570212352 node_paths=PackedStringArray("sm") instance=ExtResource("2_player")]
 position = Vector2(81, 118)
@@ -152,11 +134,24 @@ autostart = true
 [node name="Bat" parent="." unique_id=1845500 instance=ExtResource("12_eb6dy")]
 position = Vector2(-237, -120)
 
+[node name="Node2D" parent="." unique_id=766405526 instance=ExtResource("18_dp3eg")]
+position = Vector2(-197, 45)
+
+[node name="Node2D2" parent="." unique_id=688828169 instance=ExtResource("18_dp3eg")]
+position = Vector2(-5, 210)
+
+[node name="Node2D3" parent="." unique_id=1566401201 instance=ExtResource("18_dp3eg")]
+position = Vector2(195, 42)
+
+[node name="Node2D4" parent="." unique_id=1246164677 instance=ExtResource("18_dp3eg")]
+position = Vector2(91, -156)
+
+[node name="Node2D5" parent="." unique_id=307394631 instance=ExtResource("18_dp3eg")]
+position = Vector2(-95, -158)
+
 [connection signal="timeout" from="WaveManager/Timer" to="WaveManager" method="_on_timer_timeout"]
 
 [editable path="Obstacles/Graveyard/Grave1"]
 [editable path="Obstacles/Graveyard/Grave2"]
 [editable path="Obstacles/Graveyard/Grave3"]
 [editable path="Obstacles/Graveyard/Grave4"]
-[editable path="Obstacles/Walls/Wall1"]
-[editable path="Obstacles/Walls/Wall2"]

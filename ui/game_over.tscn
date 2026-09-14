@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bdcf0b1e38pok" path="res://ui/game_over.gd" id="1_oo8kp"]
 [ext_resource type="PackedScene" uid="uid://6xmfygh63m6r" path="res://ui/Transition.tscn" id="2_5eixk"]
+[ext_resource type="PackedScene" path="res://ui/kill_stats.tscn" id="3_kills"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0541"]
 bg_color = Color(0.35686275, 0.1764706, 0.5647059, 1)
@@ -58,6 +59,9 @@ text = "High Score: 5000
 Your Score:
 123"
 horizontal_alignment = 1
+
+[node name="KillStats" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1633839098 instance=ExtResource("3_kills")]
+theme_override_font_sizes/font_size = 16
 
 [node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=753139962]
 layout_mode = 2

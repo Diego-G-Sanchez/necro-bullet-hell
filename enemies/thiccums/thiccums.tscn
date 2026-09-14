@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="6_arena"]
 [ext_resource type="PackedScene" uid="uid://cej32yq2uw0e3" path="res://enemies/frost.tscn" id="7_ryn3m"]
 [ext_resource type="Texture2D" uid="uid://cdo6x5whtwnq4" path="res://assets/pixel.png" id="9_dveb8"]
+[ext_resource type="PackedScene" uid="uid://b8hurt3n3mysc" path="res://components/enemy_hurt_sound/enemy_hurt_sound.tscn" id="10_hurt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_smehm"]
 radius = 184.84
@@ -247,6 +248,9 @@ autostart = true
 texture = ExtResource("9_dveb8")
 lifetime = 1.6900000000000002
 process_material = SubResource("ParticleProcessMaterial_hrxsu")
+
+[node name="EnemyHurtSound" parent="." unique_id=1847293853 node_paths=PackedStringArray("health_component") instance=ExtResource("10_hurt")]
+health_component = NodePath("../Health")
 
 [connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]
 [connection signal="timeout" from="AuraTick" to="." method="_on_aura_tick"]

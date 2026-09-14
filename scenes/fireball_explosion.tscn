@@ -68,6 +68,15 @@ _data = {
 &"boom": SubResource("Animation_vqoxj")
 }
 
+[sub_resource type="Gradient" id="Gradient_f1ej7"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_v6nwc"]
+gradient = SubResource("Gradient_f1ej7")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
 [node name="Fireball" type="Node2D" unique_id=474795679 node_paths=PackedStringArray("hb")]
 script = ExtResource("1_v6nwc")
 hb = NodePath("HitBox")
@@ -86,5 +95,13 @@ texture = ExtResource("2_v6nwc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1289788773]
 libraries/ = SubResource("AnimationLibrary_86oub")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=849424450]
+scale = Vector2(1.71, 1.71)
+color = Color(0.70476854, 0, 0.18713072, 1)
+energy = 2.8
+texture = SubResource("GradientTexture2D_v6nwc")
+texture_scale = 1.87
+height = 100.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

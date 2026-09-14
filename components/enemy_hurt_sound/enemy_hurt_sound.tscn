@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b8hurt3n3mysc"]
+
+[ext_resource type="Script" uid="uid://c8hurt3n3myh1" path="res://components/enemy_hurt_sound/enemy_hurt_sound.gd" id="1_script"]
+[ext_resource type="AudioStream" uid="uid://dmctc4ficusex" path="res://sounds/sfx/enemyHurt1.wav" id="2_hurt1"]
+[ext_resource type="AudioStream" uid="uid://cux2cqanm6o6b" path="res://sounds/sfx/enemyHurt2.wav" id="3_hurt2"]
+[ext_resource type="AudioStream" uid="uid://cvdpodo2ejo4f" path="res://sounds/sfx/enemyHurt3.wav" id="4_hurt3"]
+
+[node name="EnemyHurtSound" type="Node" unique_id=1847293850]
+script = ExtResource("1_script")
+hurt_sounds = Array[AudioStream]([ExtResource("2_hurt1"), ExtResource("3_hurt2"), ExtResource("4_hurt3")])

@@ -7,6 +7,15 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
 radius = 7.5
 
+[sub_resource type="Gradient" id="Gradient_f1ej7"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g03ek"]
+gradient = SubResource("Gradient_f1ej7")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
 [node name="BatBullet" type="Node2D" unique_id=977428108 node_paths=PackedStringArray("hb")]
 scale = Vector2(0.8, 0.8)
 script = ExtResource("1_g03ek")
@@ -28,6 +37,14 @@ shape = SubResource("CircleShape2D_hrxsu")
 wait_time = 10.0
 one_shot = true
 autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1424133467]
+scale = Vector2(0.25, 0.25)
+color = Color(0.7782422, 0.051242888, 0.40447178, 1)
+energy = 1.15
+texture = SubResource("GradientTexture2D_g03ek")
+texture_scale = 1.87
+height = 100.0
 
 [connection signal="area_entered" from="BulletHitBox" to="." method="_on_bullet_area_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

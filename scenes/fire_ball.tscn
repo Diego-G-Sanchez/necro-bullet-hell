@@ -7,6 +7,15 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
 
+[sub_resource type="Gradient" id="Gradient_f1ej7"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ggq3o"]
+gradient = SubResource("Gradient_f1ej7")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
 [node name="FireBall" type="Node2D" unique_id=1411213939 node_paths=PackedStringArray("hb")]
 script = ExtResource("1_7fy7u")
 hb = NodePath("HitBox")
@@ -28,5 +37,13 @@ texture = ExtResource("3_circle")
 wait_time = 10.0
 one_shot = true
 autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=816969174]
+scale = Vector2(0.4, 0.4)
+color = Color(0.70476854, 0, 0.18713072, 1)
+energy = 1.7
+texture = SubResource("GradientTexture2D_ggq3o")
+texture_scale = 1.87
+height = 100.0
 
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

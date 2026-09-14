@@ -31,6 +31,7 @@ func _ready() -> void:
 func death():
 	var score_increment = config.thiccums_points_on_kill + randi_range(-config.thiccums_points_on_kill_variance, config.thiccums_points_on_kill_variance)
 	player_ref.sm.change_score(score_increment, global_position)
+	Globals.record_kill("thiccums")
 	queue_free()
 
 func _on_damage_taken(dmg_taken:int):

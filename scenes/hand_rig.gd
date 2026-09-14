@@ -97,12 +97,14 @@ func wolf_parry():
 
 func sharp_shoot():
 	if player.sharp_shoot_cd <= 0.0:
+		Sfx.play(preload("res://sounds/sfx/shootGun0.wav"))
 		shoot(bulletSharp)
 		player.sm.change_score(-player.sm.config.shot_cost, global_position)
 		player.sharp_shoot_cd = player.sm.config.sharp_shoot_cd
 
 func sharp_dash():
 	if player.sharp_dash_cd <= 0.0:
+		Sfx.play(preload("res://sounds/sfx/dash.wav"))
 		player.dash.dash()
 		dash_used.emit()
 		player.sm.change_score(-player.sm.config.dash_cost, global_position)

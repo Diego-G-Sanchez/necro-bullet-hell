@@ -26,6 +26,7 @@ func _ready() -> void:
 func death():
 	var score_increment = config.zombie_points_on_kill + randi_range(-config.zombie_points_on_kill_variance, config.zombie_points_on_kill_variance)
 	player_ref.sm.change_score(score_increment, global_position)
+	Globals.record_kill("zombie")
 	queue_free()
 	
 func flash_red(dmg_taken:int):

@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cucdolrsn5ldb" path="res://assets/ghostsprites.png" id="5_gf3lj"]
 [ext_resource type="PackedScene" uid="uid://cej32yq2uw0e3" path="res://enemies/frost.tscn" id="6_gf3lj"]
 [ext_resource type="Texture2D" uid="uid://errc7u2wx0ft" path="res://assets/circle1.png" id="7_2ie3h"]
+[ext_resource type="PackedScene" uid="uid://b8hurt3n3mysc" path="res://components/enemy_hurt_sound/enemy_hurt_sound.tscn" id="8_hurt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hrxsu"]
 radius = 3.6649828
@@ -149,6 +150,9 @@ sprite = NodePath("../Sprite2D")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=339232829]
 libraries/ = SubResource("AnimationLibrary_o4twe")
 autoplay = &"float"
+
+[node name="EnemyHurtSound" parent="." unique_id=1847293852 node_paths=PackedStringArray("health_component") instance=ExtResource("8_hurt")]
+health_component = NodePath("../HealthComponent")
 
 [connection signal="area_entered" from="Area2D" to="Area2D" method="_on_area_entered"]
 [connection signal="animation_finished" from="Sprite2D" to="." method="_on_sprite_2d_animation_finished"]

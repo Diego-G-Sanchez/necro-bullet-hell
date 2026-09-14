@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c731gyge3e2ay" path="res://assets/zombie.png" id="5_20vm6"]
 [ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="6_arena"]
 [ext_resource type="PackedScene" uid="uid://cej32yq2uw0e3" path="res://enemies/frost.tscn" id="7_ryn3m"]
+[ext_resource type="PackedScene" uid="uid://b8hurt3n3mysc" path="res://components/enemy_hurt_sound/enemy_hurt_sound.tscn" id="8_hurt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_smehm"]
 radius = 47.15413
@@ -191,5 +192,8 @@ autoplay = &"walk"
 
 [node name="Frost" parent="." unique_id=342387197 node_paths=PackedStringArray("sprite") instance=ExtResource("7_ryn3m")]
 sprite = NodePath("../Sprite2D")
+
+[node name="EnemyHurtSound" parent="." unique_id=1847293851 node_paths=PackedStringArray("health_component") instance=ExtResource("8_hurt")]
+health_component = NodePath("../Health")
 
 [connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]
