@@ -52,25 +52,29 @@ script = ExtResource("1_grid")
 [node name="Graveyard" type="Node2D" parent="Obstacles" unique_id=620387114]
 
 [node name="Grave1" parent="Obstacles/Graveyard" unique_id=1739204518 instance=ExtResource("15_obstacle")]
-position = Vector2(-405, 113)
+position = Vector2(-406, 135)
+scale = Vector2(0.8443231, 0.6657408)
 
 [node name="CollisionShape2D" parent="Obstacles/Graveyard/Grave1" index="0"]
 shape = SubResource("RectangleShape2D_grave1")
 
 [node name="Grave2" parent="Obstacles/Graveyard" unique_id=884120357 instance=ExtResource("15_obstacle")]
-position = Vector2(-406, -160)
+position = Vector2(-405, -150)
+scale = Vector2(0.7165331, 0.74739003)
 
 [node name="CollisionShape2D" parent="Obstacles/Graveyard/Grave2" index="0"]
 shape = SubResource("RectangleShape2D_grave2")
 
 [node name="Grave3" parent="Obstacles/Graveyard" unique_id=1012474943 instance=ExtResource("15_obstacle")]
-position = Vector2(410, -156.5)
+position = Vector2(409, -146)
+scale = Vector2(0.50936514, 0.8624741)
 
 [node name="CollisionShape2D" parent="Obstacles/Graveyard/Grave3" index="0"]
 shape = SubResource("RectangleShape2D_grave3")
 
 [node name="Grave4" parent="Obstacles/Graveyard" unique_id=2066412650 instance=ExtResource("15_obstacle")]
-position = Vector2(410, 110)
+position = Vector2(409.00003, 123.00001)
+scale = Vector2(0.6, 0.76000124)
 
 [node name="CollisionShape2D" parent="Obstacles/Graveyard/Grave4" index="0"]
 shape = SubResource("RectangleShape2D_grave4")
@@ -111,7 +115,7 @@ script = ExtResource("7_choun")
 [node name="Pause" parent="CanvasLayer" unique_id=1038666224 instance=ExtResource("13_pause")]
 
 [node name="Transition" parent="CanvasLayer" unique_id=293391647 instance=ExtResource("9_a8y0u")]
-anchors_preset = 15
+z_index = 10
 grow_horizontal = 2
 grow_vertical = 2
 next_scene = "res://ui/game_over.tscn"

@@ -7,7 +7,6 @@ var _paused_for_loss: bool = false
 
 func _ready() -> void:
 	if not Globals.music.playing:
-		$PanelContainer/MarginContainer/VBoxContainer/Label.text = "YOU WIN!"
 		Globals.music.play()
 	else:
 		_paused_for_loss = true
@@ -23,6 +22,7 @@ func _ready() -> void:
 		fade.tween_property(Globals.music, "volume_db", _music_restore_db, 2.0)
 	var score_text := 'YOU LOST'
 	if Globals.final_score > 0:
+		$PanelContainer/MarginContainer/VBoxContainer/Label.text = "YOU WIN!"
 		score_text = 'Your Score:\n' + str(Globals.final_score)
 	if Globals.has_high_score:
 		score_label.text = 'High Score: ' + str(Globals.high_score) + '\n' + score_text
