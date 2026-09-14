@@ -16,5 +16,7 @@ func _on_round_timer_timeout() -> void:
 
 func game_over():
 	Globals.final_score = int(sm.score)
+	await Sfx.play(preload("res://sounds/sfx/deathtune.wav"),Vector2.ZERO, -20.0)
 	trans.fade_start()
 	#get_tree().change_scene_to_file("res://ui/game_over.tscn")
+	

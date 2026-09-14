@@ -2,9 +2,14 @@ extends Control
 
 @onready var time_label = %Time
 @onready var score_label = %Score
+@onready var parry_bar = %Parry
+@onready var sharp_shoot_bar = %SharpShoot
+@onready var firebomb_bar = %Firebomb
+@onready var sharp_dash_bar = %SharpDash
 
 @export var gs: GameState
 @export var sm: ScoreManager
+@export var player: Player
 
 @onready var blood = %BloodIcon
 var blood_tween: Tween
@@ -45,3 +50,14 @@ func _process(delta: float) -> void:
 		
 	if sm.score:
 		score_label.text = str(int(sm.score))
+
+	if player and player.sm and player.sm.config:
+		var cfg := player.sm.config
+		_set_cd_bar(parry_bar, player.wolf_parry_cd, cfg.wolf_parry_cd)
+		_set_cd_bar(sharp_shoot_bar, player.sharp_shoot_cd, cfg.sharp_shoot_cd)
+		_set_cd_bar(firebomb_bar, player.mage_fireball_cd, cfg.mage_fireball_cd)
+		_set_cd_bar(sharp_dash_bar, player.sharp_dash_cd, cfg.sharp_dash_cd)
+
+
+func _set_cd_bar(bar: ProgressBar, remaining: float, duration: float) -> void:
+	bar.value = 0.0 if duration <= 0.0 else clampf(remaining / duration, 0.0, 1.0) * 100.0

@@ -111,9 +111,10 @@ zoom = Vector2(0.5, 0.5)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=442931881]
 
-[node name="UI" parent="CanvasLayer" unique_id=460964894 node_paths=PackedStringArray("gs", "sm") instance=ExtResource("4_jyhfs")]
+[node name="UI" parent="CanvasLayer" unique_id=460964894 node_paths=PackedStringArray("gs", "sm", "player") instance=ExtResource("4_jyhfs")]
 gs = NodePath("../../GameState")
 sm = NodePath("../../ScoreManager")
+player = NodePath("../../Player")
 
 [node name="Vignette" type="ColorRect" parent="CanvasLayer" unique_id=92303246]
 material = SubResource("ShaderMaterial_tipki")
