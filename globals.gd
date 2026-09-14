@@ -16,7 +16,7 @@ const REMAP_ACTIONS: Array[String] = [
 const ENEMY_TYPES: Array[String] = ["zombie", "bat", "thiccums"]
 const ENEMY_LABELS := {
 	"zombie": "Zombies",
-	"bat": "Bats",
+	"bat": "Ghosts",
 	"thiccums": "Thiccums",
 }
 

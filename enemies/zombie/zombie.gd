@@ -12,8 +12,17 @@ var knockback:= Vector2.ZERO
 var player_ref: Player
 
 
+func get_player_ref():
+	var player_nodes = get_tree().get_nodes_in_group("Player")
+	for i in player_nodes:
+		if i is Player:
+			return i
+	return null
+	
 func _ready() -> void:
-	player_ref = get_tree().get_first_node_in_group("Player")
+	player_ref = get_player_ref()
+	if player_ref == null:
+		queue_free()
 	assert(player_ref)
 	config = player_ref.sm.config
 	speed = config.zombie_speed

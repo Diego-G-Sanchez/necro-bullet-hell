@@ -39,9 +39,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -66.0
-offset_top = -120.0
+offset_top = -155.0
 offset_right = 66.0
-offset_bottom = 120.0
+offset_bottom = 155.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -74,6 +74,15 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_u0541")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oo8kp")
 text = "Play
 "
+
+[node name="Tutorial" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1413234193]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.25
+theme_override_styles/normal = SubResource("StyleBoxFlat_u0541")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oo8kp")
+text = "Tutorial"
 
 [node name="Settings" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1834130015]
 custom_minimum_size = Vector2(0, 40)
@@ -259,6 +268,7 @@ position = Vector2(431, 289)
 texture = ExtResource("4_igmpp")
 
 [connection signal="button_up" from="PanelContainer/MarginContainer/VBoxContainer/Play" to="." method="_on_play_button_up"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="value_changed" from="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel/VBoxContainer/Master Volume" to="." method="_on_master_volume_value_changed"]
 [connection signal="value_changed" from="SettingsPage/Panel/MarginContainer/VBoxContainer/Panel2/VBoxContainer/Music" to="." method="_on_music_value_changed"]

@@ -68,11 +68,11 @@ _data = {
 &"boom": SubResource("Animation_vqoxj")
 }
 
-[sub_resource type="Gradient" id="Gradient_f1ej7"]
+[sub_resource type="Gradient" id="Gradient_v6nwc"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_v6nwc"]
-gradient = SubResource("Gradient_f1ej7")
+gradient = SubResource("Gradient_v6nwc")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
@@ -99,7 +99,7 @@ libraries/ = SubResource("AnimationLibrary_86oub")
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=849424450]
 scale = Vector2(1.71, 1.71)
 color = Color(0.70476854, 0, 0.18713072, 1)
-energy = 2.8
+energy = 3.35
 texture = SubResource("GradientTexture2D_v6nwc")
 texture_scale = 1.87
 height = 100.0

@@ -84,9 +84,6 @@ position = Vector2(81, 118)
 sm = NodePath("../ScoreManager")
 hand_radius = 18.0
 
-[node name="Zombie" parent="." unique_id=2132140099 instance=ExtResource("3_sugp2")]
-position = Vector2(249, 46)
-
 [node name="GameState" parent="." unique_id=2102336360 node_paths=PackedStringArray("trans", "sm") instance=ExtResource("4_tbgi4")]
 round_length = 128.0
 trans = NodePath("../CanvasLayer/Transition")
@@ -134,9 +131,6 @@ camera = NodePath("../Camera2D")
 
 [node name="Timer" type="Timer" parent="WaveManager" unique_id=1448802647]
 autostart = true
-
-[node name="Bat" parent="." unique_id=1845500 instance=ExtResource("12_eb6dy")]
-position = Vector2(-237, -120)
 
 [node name="Node2D" parent="." unique_id=766405526 instance=ExtResource("18_dp3eg")]
 position = Vector2(-197, 45)

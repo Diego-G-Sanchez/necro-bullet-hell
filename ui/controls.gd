@@ -71,7 +71,6 @@ func _build_rows() -> void:
 		var row := Panel.new()
 		row.custom_minimum_size = Vector2(0, 28)
 		var hbox := HBoxContainer.new()
-		hbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		hbox.add_theme_constant_override("separation", 8)
 		var label := Label.new()
 		label.text = str(ACTION_LABELS.get(action, action))
@@ -84,6 +83,9 @@ func _build_rows() -> void:
 		hbox.add_child(bind_button)
 		row.add_child(hbox)
 		bind_list.add_child(row)
+		hbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		hbox.offset_left = 6
+		hbox.offset_right = -6
 		_bind_buttons[action] = bind_button
 	_refresh_labels()
 

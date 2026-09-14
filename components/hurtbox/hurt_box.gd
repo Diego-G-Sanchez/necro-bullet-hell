@@ -12,7 +12,6 @@ extends Area2D
 @export var health_component: HealthComponent
 
 
-
 func _on_area_entered(area: Area2D) -> void:
 	if oppositional_group in area.get_groups(): 
 		if area is HitBox:

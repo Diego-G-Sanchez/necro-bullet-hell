@@ -16,10 +16,13 @@ const SHADER_WARMUP := preload("res://ui/shader_warmup.tscn")
 @onready var sfx_slider: HSlider = %SFX
 @onready var play_button: Button = $PanelContainer/MarginContainer/VBoxContainer/Play
 @onready var settings_button: Button = $PanelContainer/MarginContainer/VBoxContainer/Settings
+@onready var controls_button: ControlsMenu = %Controls
 
 
 func _on_play_button_up() -> void:
 	#get_tree().change_scene_to_file("res://scenes/main.tscn")
+	$Transition.next_scene = 'res://scenes/main.tscn'
+
 	$Transition.fade_start()
 
 
@@ -27,6 +30,7 @@ func _ready() -> void:
 	settings_panel.visible = false
 	play_button.disabled = true
 	settings_button.disabled = true
+	controls_button.disabled = true
 	_apply_starting_volume(master_slider, BUS_MASTER)
 	_apply_starting_volume(music_slider, BUS_MUSIC)
 	_apply_starting_volume(sfx_slider, BUS_SFX)
@@ -36,6 +40,7 @@ func _ready() -> void:
 	await warmup.run()
 	play_button.disabled = false
 	settings_button.disabled = false
+	controls_button.disabled = false
 
 
 func _spawn_pentagrams() -> void:
@@ -117,3 +122,8 @@ func _set_bus_from_slider(bus_name: String, value: float, max_value: float) -> v
 	AudioServer.set_bus_mute(bus_idx, linear <= 0.0)
 	if linear > 0.0:
 		AudioServer.set_bus_volume_db(bus_idx, linear_to_db(linear))
+
+
+func _on_tutorial_pressed() -> void:
+	$Transition.next_scene = 'res://scenes/tutorial.tscn'
+	$Transition.fade_start()
