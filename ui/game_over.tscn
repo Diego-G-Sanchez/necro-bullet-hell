@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bdcf0b1e38pok" path="res://ui/game_over.gd" id="1_oo8kp"]
 [ext_resource type="PackedScene" uid="uid://6xmfygh63m6r" path="res://ui/Transition.tscn" id="2_5eixk"]
 [ext_resource type="PackedScene" path="res://ui/kill_stats.tscn" id="3_kills"]
+[ext_resource type="PackedScene" uid="uid://c0ntr0lsscene" path="res://ui/controls.tscn" id="4_controls"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0541"]
 bg_color = Color(0.35686275, 0.1764706, 0.5647059, 1)
@@ -70,6 +71,12 @@ size_flags_stretch_ratio = 0.25
 theme_override_styles/normal = SubResource("StyleBoxFlat_u0541")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oo8kp")
 text = "Play again"
+
+[node name="Controls" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("4_controls")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
 
 [node name="Transition" parent="." unique_id=293391647 instance=ExtResource("2_5eixk")]
 layout_mode = 1
