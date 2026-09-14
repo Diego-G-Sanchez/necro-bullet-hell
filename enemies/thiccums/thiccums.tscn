@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cq8hn0s5svofn" path="res://components/health/health.tscn" id="1_hfuf0"]
 [ext_resource type="Script" uid="uid://dciw2d4b2myip" path="res://components/hurtbox/hurt_box.gd" id="2_bwstf"]
 [ext_resource type="Script" uid="uid://dyifetepnbpij" path="res://components/hitbox/hit_box.gd" id="3_20vm6"]
-[ext_resource type="Texture2D" uid="uid://c731gyge3e2ay" path="res://assets/zombie.png" id="5_20vm6"]
+[ext_resource type="Texture2D" uid="uid://csmbfg8uodibq" path="res://assets/thickums.png" id="5_20vm6"]
 [ext_resource type="Texture2D" uid="uid://bejfn11yi1iyk" path="res://assets/circle2.png" id="5_dveb8"]
 [ext_resource type="PackedScene" uid="uid://4u3bg2cj51nf" path="res://components/arena_bounds/arena_bounds.tscn" id="6_arena"]
 [ext_resource type="PackedScene" uid="uid://cej32yq2uw0e3" path="res://enemies/frost.tscn" id="7_ryn3m"]
