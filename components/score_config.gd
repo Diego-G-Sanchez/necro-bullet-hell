@@ -28,6 +28,14 @@ class_name ScoreConfig
 @export var shot_hit_reward_mult: float = 1.5
 @export var dash_cost: float = 25.0
 
+## How long action1 must be held to reach a full charge, in seconds.
+@export var sharp_charge_time: float = 1.0
+## Enough to one-shot Thiccums (thiccums_health = 50).
+@export var sharp_charged_shot_damage: int = 60
+@export var sharp_charged_shot_speed: float = 500.0
+@export var sharp_charged_shot_scale: float = 2.2
+@export var sharp_charged_shot_cost: float = 75.0
+
 @export var sharp_shoot_cd: float = 1.0
 @export var sharp_dash_cd: float = 1.0
 @export var sharp_swap_cost: float = 250.0

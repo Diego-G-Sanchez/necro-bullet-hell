@@ -19,15 +19,23 @@ signal dash_used
 
 const WOLF_SLASH_SFX := preload("res://sounds/sfx/wolfattack.wav")
 const WOLF_PARRY_SFX := preload("res://sounds/sfx/parry2.wav")
+const GUN_READY_SFX := preload("res://sounds/sfx/gunReady.wav")
+const SHOOT_SFX := preload("res://sounds/sfx/shootGun0.wav")
+const SHOOT_CHARGED_SFX := preload("res://sounds/sfx/shootGun.wav")
+
+## Hold action1 in Shooter form for sharp_charge_time to fire a charged shot on release.
+var is_charging_shot := false
+var charge_time := 0.0
+var _charge_ready_sfx_played := false
 
 
-func _process(_delta: float) -> void:
-	if Input.is_action_pressed("action1"):
+func _process(delta: float) -> void:
+	if player.hand_state == player.Hands.Shooter:
+		_handle_sharp_shoot_input(delta)
+	elif Input.is_action_pressed("action1"):
 		match player.hand_state:
 			player.Hands.Wolf:
 				wolf_slash()
-			player.Hands.Shooter:
-				sharp_shoot()
 			player.Hands.Mage:
 				mage_frost()
 
@@ -59,6 +67,7 @@ func play_weapon_switch():
 	Sfx.play(sacrifice_sound)
 	
 func switch_to_wolf():
+	_cancel_charge()
 	play_weapon_switch()
 	player.sm.change_score(-player.sm.config.wolf_swap_cost, global_position)
 	player.hand_state = player.Hands.Wolf
@@ -70,9 +79,10 @@ func switch_to_sharp():
 	player.sm.change_score(-player.sm.config.sharp_swap_cost, global_position)
 	player.hand_state = player.Hands.Shooter
 	$HandL.texture = preload("res://assets/hand_l_sharp.png")
-	$HandR.texture = preload("res://assets/hand_l_sharp.png")
+	$HandR.texture = preload("res://assets/hand_r_sharp.png")
 
 func switch_to_mage():
+	_cancel_charge()
 	play_weapon_switch()
 	player.sm.change_score(-player.sm.config.mage_swap_cost, global_position)
 	player.hand_state = player.Hands.Mage
@@ -95,12 +105,56 @@ func wolf_parry():
 		player.sm.change_score(-player.sm.config.parry_cost, global_position)
 		player.wolf_parry_cd = player.sm.config.wolf_parry_cd
 
-func sharp_shoot():
-	if player.sharp_shoot_cd <= 0.0:
-		Sfx.play(preload("res://sounds/sfx/shootGun0.wav"))
-		shoot(bulletSharp)
+## Tap action1 for a normal shot, fired the instant you release (no bullet fires
+## while you're still holding). Keep holding past sharp_charge_time and release
+## for a bigger charged shot instead, strong enough to one-shot Thiccums.
+func _handle_sharp_shoot_input(delta: float) -> void:
+	if Input.is_action_just_pressed("action1") and player.sharp_shoot_cd <= 0.0:
+		_start_charging_shot()
+
+	if not is_charging_shot:
+		return
+
+	charge_time += delta
+	var charge_needed := player.sm.config.sharp_charge_time
+
+	if Input.is_action_just_released("action1"):
+		is_charging_shot = false
+		_fire_shot(charge_time >= charge_needed)
+	elif charge_time >= charge_needed and not _charge_ready_sfx_played:
+		_charge_ready_sfx_played = true
+		Sfx.play(GUN_READY_SFX, global_position)
+		$AnimationPlayer.play("sharp_charge_ready")
+
+func _start_charging_shot() -> void:
+	is_charging_shot = true
+	charge_time = 0.0
+	_charge_ready_sfx_played = false
+	$AnimationPlayer.play("sharp_charge")
+
+## Fires exactly one bullet, small or charged depending on how long action1 was held.
+func _fire_shot(charged: bool) -> void:
+	$AnimationPlayer.play("sharp_shoot")
+	shoot_sharp(charged)
+	if charged:
+		Sfx.play(SHOOT_CHARGED_SFX, global_position)
+		player.sm.change_score(-player.sm.config.sharp_charged_shot_cost, global_position)
+	else:
+		Sfx.play(SHOOT_SFX, global_position)
 		player.sm.change_score(-player.sm.config.shot_cost, global_position)
-		player.sharp_shoot_cd = player.sm.config.sharp_shoot_cd
+	player.sharp_shoot_cd = player.sm.config.sharp_shoot_cd
+
+func _cancel_charge() -> void:
+	if is_charging_shot:
+		is_charging_shot = false
+		$AnimationPlayer.stop()
+
+func shoot_sharp(charged: bool) -> void:
+	var b: PlayerBullet = bulletSharp.instantiate()
+	b.global_position = global_position
+	b.initialize(player.sm.config, charged)
+	b.dir = (get_global_mouse_position() - player.global_position).normalized()
+	get_tree().root.add_child(b)
 
 func sharp_dash():
 	if player.sharp_dash_cd <= 0.0:
