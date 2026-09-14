@@ -14,13 +14,16 @@ func _ready() -> void:
 	
 
 func take_damage(dmg: int):
+	if dmg <= 0: # No damage, no hit reaction (e.g. frost's slow-only impact).
+		return
+
 	if use_health:
 		health -= dmg
-		
+
 		if health <= 0:
 			death()
 			return
-		
+
 		damage_taken.emit(dmg)
 	else: #The player doesn't use health, rahter score. So just emit damage taken for another thing to handle
 		damage_taken.emit(dmg)

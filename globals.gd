@@ -32,7 +32,10 @@ var _default_primaries: Dictionary = {}
 
 @onready var music: AudioStreamPlayer = $Music
 
+const CROSSHAIR_CURSOR := preload("res://assets/crosshair.png")
+
 func _ready() -> void:
+	Input.set_custom_mouse_cursor(CROSSHAIR_CURSOR, Input.CURSOR_ARROW, Vector2(16, 16))
 	_snapshot_default_primaries()
 	_empty_kill_maps()
 	_load_save()
