@@ -6,12 +6,14 @@ var speed: float
 @export var aura_tick_interval: float = 0.5
 @onready var hc: HealthComponent = %Health
 @onready var sprite: AnimatedSprite2D = $Sprite2D
+@onready var light: PointLight2D = $PointLight2D
 @export var arena_bounds: ArenaBounds
 var config: ScoreConfig
 var dir:= Vector2.ZERO
 var knockback:= Vector2.ZERO
 var player_ref: Player
 var initial_scale: Vector2
+var light_offset_x: float
 
 
 func _ready() -> void:
@@ -22,6 +24,7 @@ func _ready() -> void:
 	hc.max_health = config.thiccums_health
 	hc.health = config.thiccums_health
 	initial_scale = scale
+	light_offset_x = light.position.x
 	hc.damage_taken.connect(_on_damage_taken)
 	hc.died.connect(death)
 	$HitBox.set_damage(config.thiccums_big_aura_tick_damage)
@@ -58,6 +61,7 @@ func _process(delta: float) -> void:
 		velocity = velocity.move_toward(dir * speed, acceleration * delta)
 		velocity += knockback
 		sprite.flip_h = dir.x < 0.0
+		light.position.x = -light_offset_x if sprite.flip_h else light_offset_x
 	move_and_slide()
 
 	if velocity.length() > 1.0:
