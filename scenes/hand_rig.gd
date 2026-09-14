@@ -19,14 +19,20 @@ signal dash_used
 
 const WOLF_SLASH_SFX := preload("res://sounds/sfx/wolfattack.wav")
 const WOLF_PARRY_SFX := preload("res://sounds/sfx/parry2.wav")
-const GUN_READY_SFX := preload("res://sounds/sfx/gunReady.wav")
 const SHOOT_SFX := preload("res://sounds/sfx/shootGun0.wav")
 const SHOOT_CHARGED_SFX := preload("res://sounds/sfx/shootGun.wav")
+## Hums for the whole charge-up; length matches sharp_charge_time.
+const CHARGE_SHOT_SFX := preload("res://sounds/sfx/charge_shot.wav")
+## Plays the instant the charge hits sharp_charge_time.
+const CHARGED_SHOT_READY_SFX := preload("res://sounds/sfx/charged_shot_ready.wav")
 
 ## Hold action1 in Shooter form for sharp_charge_time to fire a charged shot on release.
 var is_charging_shot := false
 var charge_time := 0.0
 var _charge_ready_sfx_played := false
+## The looping charge-up hum, so it can be cut off early instead of always playing
+## out its full length (e.g. on a quick tap that never reaches a full charge).
+var _charge_sfx_player: AudioStreamPlayer2D
 
 
 func _process(delta: float) -> void:
@@ -118,22 +124,24 @@ func _handle_sharp_shoot_input(delta: float) -> void:
 	charge_time += delta
 	var charge_needed := player.sm.config.sharp_charge_time
 
-	if Input.is_action_just_released("action1"):
+	if not Input.is_action_pressed("action1"):
 		is_charging_shot = false
 		_fire_shot(charge_time >= charge_needed)
 	elif charge_time >= charge_needed and not _charge_ready_sfx_played:
 		_charge_ready_sfx_played = true
-		Sfx.play(GUN_READY_SFX, global_position)
+		Sfx.play(CHARGED_SHOT_READY_SFX, global_position)
 		$AnimationPlayer.play("sharp_charge_ready")
 
 func _start_charging_shot() -> void:
 	is_charging_shot = true
 	charge_time = 0.0
 	_charge_ready_sfx_played = false
+	_charge_sfx_player = Sfx.play(CHARGE_SHOT_SFX, global_position)
 	$AnimationPlayer.play("sharp_charge")
 
 ## Fires exactly one bullet, small or charged depending on how long action1 was held.
 func _fire_shot(charged: bool) -> void:
+	_stop_charge_sfx()
 	$AnimationPlayer.play("sharp_shoot")
 	shoot_sharp(charged)
 	if charged:
@@ -144,9 +152,18 @@ func _fire_shot(charged: bool) -> void:
 		player.sm.change_score(-player.sm.config.shot_cost, global_position)
 	player.sharp_shoot_cd = player.sm.config.sharp_shoot_cd
 
+## The charge-up hum keeps playing on its own timer otherwise; cut it off the
+## moment charging actually ends instead of letting it always run its full length.
+func _stop_charge_sfx() -> void:
+	if is_instance_valid(_charge_sfx_player):
+		_charge_sfx_player.stop()
+		_charge_sfx_player.queue_free()
+	_charge_sfx_player = null
+
 func _cancel_charge() -> void:
 	if is_charging_shot:
 		is_charging_shot = false
+		_stop_charge_sfx()
 		$AnimationPlayer.stop()
 
 func shoot_sharp(charged: bool) -> void:

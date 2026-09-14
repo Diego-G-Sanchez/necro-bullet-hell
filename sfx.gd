@@ -4,9 +4,11 @@ extends Node
 ## Usage: Sfx.play(preload("res://sounds/sfx/whatever.wav"), global_position)
 ## Optional fade_out (seconds): if > 0, volume fades to silence over that duration.
 
-func play(stream: AudioStream, sound_position: Vector2 = Vector2.ZERO, volume_db: float = 0.0, fade_out: float = 0.0) -> void:
+## Returns the AudioStreamPlayer2D it spawned, in case the caller wants to hold
+## onto it and stop it early (e.g. a charge-up loop that needs to cut off).
+func play(stream: AudioStream, sound_position: Vector2 = Vector2.ZERO, volume_db: float = 0.0, fade_out: float = 0.0) -> AudioStreamPlayer2D:
 	if stream == null:
-		return
+		return null
 	var player := AudioStreamPlayer2D.new()
 	player.stream = stream
 	player.bus = "SFX"
@@ -20,3 +22,4 @@ func play(stream: AudioStream, sound_position: Vector2 = Vector2.ZERO, volume_db
 		var tween := player.create_tween()
 		tween.tween_property(player, "volume_db", -80.0, fade_out)
 		tween.tween_callback(player.queue_free)
+	return player
