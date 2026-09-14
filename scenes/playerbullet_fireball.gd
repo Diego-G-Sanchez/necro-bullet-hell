@@ -2,6 +2,9 @@ extends Node2D
 class_name PlayerBulletFireball
 
 
+const PARTICLES_SCENE := preload("res://scenes/fireball_particles.tscn")
+signal deleting
+
 @export var hb: HitBox
 @export var explosion: PackedScene
 var damage: int = 0
@@ -23,13 +26,21 @@ func initialize(config: ScoreConfig):
 	speed = config.shot_speed
 	Sfx.play(preload("res://sounds/sfx/shoot_fire.wav"))
 	hb.set_damage(damage)
+	_spawn_particles()
+
+
+func _spawn_particles() -> void:
+	var particles = PARTICLES_SCENE.instantiate()
+	add_child(particles)
+	particles.setup(self)
 
 
 func delete_bullet():
+	deleting.emit()
 	create_explosion(c)
 
 func _process(delta: float) -> void:
 	global_position += dir * delta * speed
 
 func _on_lifetime_timeout() -> void:
-	queue_free()
+	delete_bullet()

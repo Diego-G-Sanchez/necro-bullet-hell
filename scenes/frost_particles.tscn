@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://skw2fpynr42w"]
+
+[ext_resource type="Texture2D" uid="uid://cdo6x5whtwnq4" path="res://assets/pixel.png" id="1_px"]
+[ext_resource type="Script" uid="uid://bujsryoutmi10" path="res://scenes/frost_particles.gd" id="2_particles"]
+
+[sub_resource type="Curve" id="Curve_g3yst"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.466804, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rqvlm"]
+curve = SubResource("Curve_g3yst")
+
+[sub_resource type="Curve" id="Curve_rqvlm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_g3yst"]
+curve = SubResource("Curve_rqvlm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_so2k6"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 10.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 20.0
+scale_curve = SubResource("CurveTexture_g3yst")
+color = Color(0.2280699, 0.40887046, 0.7939726, 1)
+alpha_curve = SubResource("CurveTexture_rqvlm")
+hue_variation_min = -0.020000022
+hue_variation_max = 0.019999977
+
+[node name="GPUParticles2D" type="GPUParticles2D" unique_id=1959882486]
+amount = 30
+texture = ExtResource("1_px")
+process_material = SubResource("ParticleProcessMaterial_so2k6")
+script = ExtResource("2_particles")

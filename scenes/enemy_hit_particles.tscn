@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dynq4fg37eaj1"]
+
+[ext_resource type="Texture2D" uid="uid://cdo6x5whtwnq4" path="res://assets/pixel.png" id="1_6pjxh"]
+[ext_resource type="Script" uid="uid://budd32y8p7iup" path="res://scenes/hand_swap_particle.gd" id="2_vpfnb"]
+
+[sub_resource type="Curve" id="Curve_6pjxh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_6pjxh"]
+curve = SubResource("Curve_6pjxh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_icdx0"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 113.859
+initial_velocity_min = 37.579998
+initial_velocity_max = 106.21
+radial_velocity_min = -20.000021
+radial_velocity_max = 19.999977
+gravity = Vector3(0, 98, 0)
+scale_max = 44.17
+scale_curve = SubResource("CurveTexture_6pjxh")
+color = Color(0.45490196, 0.101960786, 0.21176471, 0.6627451)
+
+[node name="Node2D" type="GPUParticles2D" unique_id=510241818]
+emitting = false
+amount = 20
+texture = ExtResource("1_6pjxh")
+lifetime = 0.77
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_icdx0")
+script = ExtResource("2_vpfnb")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

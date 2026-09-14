@@ -7,6 +7,7 @@ var acceleration: float
 @export var arena_bounds: ArenaBounds
 var dir:= Vector2.ZERO
 var bullet:= preload("res://enemies/bat/bat_bullet.tscn")
+const HIT_PARTICLES := preload("res://scenes/enemy_hit_particles.tscn")
 @export var timer: Timer
 var player_ref: Player
 var config: ScoreConfig
@@ -35,6 +36,7 @@ func _ready() -> void:
 	hc.died.connect(death)
 	timer.wait_time = randf_range(config.bat_fire_interval_min, config.bat_fire_interval_max)
 
+
 func death():
 	var score_increment = config.bat_points_on_kill + randi_range(-config.bat_points_on_kill_variance, config.bat_points_on_kill_variance)
 	player_ref.sm.change_score(score_increment, global_position)
@@ -42,6 +44,9 @@ func death():
 	queue_free()
 	
 func flash_red(dmg_taken:int):
+	var p = HIT_PARTICLES.instantiate()
+	p.global_position = global_position
+	get_tree().root.add_child(p)
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color.RED, 0.1)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.1)

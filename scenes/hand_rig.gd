@@ -109,8 +109,9 @@ func wolf_parry():
 ## while you're still holding). Keep holding past sharp_charge_time and release
 ## for a bigger charged shot instead, strong enough to one-shot Thiccums.
 func _handle_sharp_shoot_input(delta: float) -> void:
-	if Input.is_action_just_pressed("action1") and player.sharp_shoot_cd <= 0.0:
+	if Input.is_action_pressed("action1") and player.sharp_shoot_cd <= 0.0 and !is_charging_shot:
 		_start_charging_shot()
+		
 
 	if not is_charging_shot:
 		return
