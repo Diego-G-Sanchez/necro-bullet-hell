@@ -5,6 +5,7 @@ const BUS_MUSIC := "Music"
 const BUS_SFX := "SFX"
 
 @onready var settings_panel: Control = %SettingsPage
+@onready var controls: ControlsMenu = %Controls
 @onready var master_slider: HSlider = %"Master Volume"
 @onready var music_slider: HSlider = %Music
 @onready var sfx_slider: HSlider = %SFX
@@ -20,6 +21,10 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("pause"):
+		return
+	if controls.is_overlay_open():
+		controls.close_overlay()
+		get_viewport().set_input_as_handled()
 		return
 	if settings_panel.visible:
 		settings_panel.visible = false
@@ -62,6 +67,8 @@ func _pause_game() -> void:
 
 
 func _resume() -> void:
+	if controls.is_overlay_open():
+		controls.close_overlay()
 	settings_panel.visible = false
 	visible = false
 	get_tree().paused = false

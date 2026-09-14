@@ -19,11 +19,14 @@ const LOSE_SOUNDS: Array[AudioStream] = [
 func set_score_value(val: int):
 	if val > 0:
 		label.add_theme_color_override("font_color", green)
+		label.label_settings.font_color = green
 		label.text = '+' + str(int(val))
 		Sfx.play(PICKUP_SOUNDS.pick_random(), global_position)
 	else:
 		label.add_theme_color_override("font_color", red)
 		label.text = '-' + str(int(val))
+		label.label_settings.font_color = red
+		
 		Sfx.play(LOSE_SOUNDS.pick_random(), global_position)
 	rotation_degrees = randf_range(-20, 20)
 	

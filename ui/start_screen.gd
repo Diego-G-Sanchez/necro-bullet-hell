@@ -3,6 +3,7 @@ extends Control
 const BUS_MASTER := "Master"
 const BUS_MUSIC := "Music"
 const BUS_SFX := "SFX"
+const SHADER_WARMUP := preload("res://ui/shader_warmup.tscn")
 
 @export var amount: int = 12
 @export var pentagram_texture: Texture2D = preload("res://assets/pentagram.png")
@@ -13,6 +14,8 @@ const BUS_SFX := "SFX"
 @onready var master_slider: HSlider = %"Master Volume"
 @onready var music_slider: HSlider = %Music
 @onready var sfx_slider: HSlider = %SFX
+@onready var play_button: Button = $PanelContainer/MarginContainer/VBoxContainer/Play
+@onready var settings_button: Button = $PanelContainer/MarginContainer/VBoxContainer/Settings
 
 
 func _on_play_button_up() -> void:
@@ -22,10 +25,17 @@ func _on_play_button_up() -> void:
 
 func _ready() -> void:
 	settings_panel.visible = false
+	play_button.disabled = true
+	settings_button.disabled = true
 	_apply_starting_volume(master_slider, BUS_MASTER)
 	_apply_starting_volume(music_slider, BUS_MUSIC)
 	_apply_starting_volume(sfx_slider, BUS_SFX)
 	_spawn_pentagrams()
+	var warmup := SHADER_WARMUP.instantiate()
+	add_child(warmup)
+	await warmup.run()
+	play_button.disabled = false
+	settings_button.disabled = false
 
 
 func _spawn_pentagrams() -> void:

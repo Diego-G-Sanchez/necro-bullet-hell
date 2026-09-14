@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c8nv4qirtxmx5" path="res://ui/score_popup.gd" id="1_deej2"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_k0aut"]
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
 [node name="ScorePopup" type="Control" unique_id=629164029]
 layout_mode = 3
 anchors_preset = 15
@@ -22,3 +26,4 @@ scale = Vector2(2, 2)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "loremipsum"
+label_settings = SubResource("LabelSettings_k0aut")
