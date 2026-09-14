@@ -33,6 +33,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_vqoxj"]
 resource_name = "boom"
@@ -60,6 +72,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 4.756827),
 "update": 0,
 "values": [Color(0.35, 0.75, 1, 0.16862746), Color(0.35, 0.75, 1, 1), Color(0.35, 0.75, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.5),
+"transitions": PackedFloat32Array(1, 1, 2.2973974),
+"update": 0,
+"values": [0.0, 5.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_86oub"]
@@ -97,9 +121,10 @@ texture = ExtResource("2_v6nwc")
 libraries/ = SubResource("AnimationLibrary_86oub")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1348302222]
-scale = Vector2(1.71, 1.71)
+position = Vector2(0, 3)
+scale = Vector2(1.34, 1.34)
 color = Color(0.34901962, 0.7490196, 1, 1)
-energy = 2.8
+energy = 0.0
 texture = SubResource("GradientTexture2D_xn42c")
 texture_scale = 1.87
 height = 100.0
